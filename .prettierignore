@@ -1,0 +1,14 @@
+node_modules
+npm-debug.log
+.npm
+.vercel
+.turbo
+cache
+CODEOWNERS
+/.vscode
+/node_modules
+./dist
+*.env
+.env
+.env.*
+.git
