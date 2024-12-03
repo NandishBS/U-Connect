@@ -16,6 +16,6 @@ const helloSlice = createSlice({
     }
 })
 
-export const { changeMessage } = helloSlice.actions
+export const { changeMessage } = helloSlice.actions;
 
 export default helloSlice.reducer;
