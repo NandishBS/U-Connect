@@ -19,7 +19,7 @@ app.use(upload.none());
 // routes import and declaration
 import userRouter from './routes/user.routes.js'
 
-app.use("/api/users", userRouter)
+app.use("/api/user", userRouter)
 
 
 export default app
