@@ -1,15 +1,14 @@
 import { asyncHandler } from "../utils/asyncHandler.utils.js";
-import {
-    fetchStudentsDataFromCollege,
-    fetchTeachersDataFromCollege,
-} from "../db/college.db.js";
-import { ApiResponse } from "../utils/ApiRespnse.utils.js";
+import { fetchStudentsDataFromCollege, fetchTeachersDataFromCollege, } from "../db/college.db.js";
+import { ApiResponse } from "../utils/ApiResponse.utils.js";
 import { ApiError } from "../utils/ApiError.utils.js";
 import { sendOtpTo } from "../utils/otp.utils.js";
 import Otp from "../models/otp.model.js";
 import User from "../models/user.model.js";
+import { generateAccessToken, generateRefreshToken } from '../utils/tokenHandler.utils.js'
+import { cookieOptions } from '../constants.js';
 
-const verifyController = asyncHandler(async (req, res) => {
+const verify = asyncHandler(async (req, res) => {
     try {
         const { usn, password, username, role } = req.body;
         if (!(usn && password && username && role)) {
@@ -81,11 +80,11 @@ const verifyController = asyncHandler(async (req, res) => {
 
         return res.status(200).json(new ApiResponse(200, null, "otp is sent to your email successfully"));
     } catch (error) {
-        throw new ApiError(error.status, "error in otp generation");
+        throw new ApiError(error.status, error.message);
     }
 });
 
-const registerUser = asyncHandler(async (req, res) => {
+const register = asyncHandler(async (req, res) => {
     try {
         const { usn, username, password, otp, role } = req.body;
         if (!(usn && username && password && otp && role)) {
@@ -138,19 +137,123 @@ const registerUser = asyncHandler(async (req, res) => {
             .status(201)
             .json(new ApiResponse(201, null, "User registered Successfully"));
     } catch (error) {
-        throw new ApiError(error.status, "user already exists");
+        throw new ApiError(error.status, error.message);
     }
 });
 
 const login = asyncHandler(async (req, res) => {
-    const { usn, password } = req.body;
-    
-    if (!usn || !password) {
-        return res.status(400).json(new ApiResponse(400, null, "Missing Credentials : USN , Username, password or role  missing"));
+    try {
+        const { usn, password } = req.body;
+
+        if (!usn || !password) {
+            return res.status(400).json(new ApiResponse(400, null, "Missing Credentials : USN , Username, password or role  missing"));
+        }
+
+        const user = await User.findOne({ usn });
+
+        if (!user) {
+            return res.status(404).json(new ApiResponse(404, null, "user doesen't exist"));
+        }
+
+        if (!(await user.isPasswordCorrect(password))) {
+            return res.status(404).json(new ApiResponse(404, null, "usn or password is wrong"));
+        }
+
+        const accessToken = await generateAccessToken(user._id);
+        const refreshToken = await generateRefreshToken(user._id);
+
+        user.refreshToken = refreshToken;
+
+        const loginedUser = await user.save();
+        if (loginedUser.refreshToken === refreshToken) {
+            return res
+                .status(201)
+                .cookie("accessToken", accessToken, cookieOptions)
+                .cookie("refreshToken", refreshToken, cookieOptions)
+                .json(new ApiResponse(201, null, "User logged in Successfully"));
+        } else {
+            return res.status(500).json(new ApiResponse(201, null, "failed to generate refresh token"))
+        }
+    } catch (error) {
+        throw new ApiError(error.status, error.message)
     }
-
-    const user = await User.findOne({usn});
-
 });
 
-export { registerUser, verifyController };
+const logout = asyncHandler(async (req, res) => {
+    try {
+        const { usn } = req.user;
+    
+        if (!usn) {
+            return res.status(400).json(new ApiResponse(400, null, "Missing Credentials : USN "));
+        }
+    
+        return res.status(201)
+            .clearCookie("accessToken")
+            .clearCookie("refreshToken")
+            .json(new ApiResponse(201, null, "logout successfull"))
+    } catch (error) {
+        throw new ApiError(error.status, error.message)
+    }
+})
+
+const forgetPassword = asyncHandler(async (req, res) => {
+    try {
+        const { usn } = req.body;
+    
+        if (!usn) {
+            return res.status(400).json(new ApiResponse(400, null, "Missing Credentials : USN "));
+        }
+    
+        const user = await User.findOne({ usn })
+    
+        if (!user) {
+            return res.status(400).json(new ApiResponse(400, null, "USN may be wrong"));
+        }
+    
+        const otpExists = await Otp.findOne({ usn });
+    
+        if (otpExists) {
+            return res.status(400).json(new ApiResponse(400, null, "wait for 2 minute to get new otp"));
+        }
+    
+        const otp = await sendOtpTo(user.email);
+    
+        if (!otp) {
+            return res.status(500).json(new ApiResponse(500, null, "we didn't able to send otp your email"));
+        }
+    
+        await Otp.create({ usn, otp });
+    
+        return res.status(200).json(new ApiResponse(200, null, "otp is sent to your email successfully"));
+    } catch (error) {
+        throw new ApiError(error.status, error.message)
+    }
+
+})
+
+const resetPassword = asyncHandler(async (req, res) => {
+    try {
+        const { usn, otp, newPassword } = req.body;
+        if (!(usn && otp && newPassword)) {
+            return res.status(400).json(new ApiResponse(400, null, "Missing Credentials : USN , otp or newPassword is missing"));
+        }
+    
+        const otpData = await Otp.findOne({ usn, otp });
+    
+        if (!otpData) { return res.status(404).json(new ApiResponse(404, null, "wrong otp")); }
+    
+        const user = await User.findOne({ usn });
+    
+        console.log(user.password)
+    
+        user.password = newPassword;
+        await user.save();
+    
+        return res.status(201)
+            .json(new ApiResponse(201, null, "password changed successfully"))
+    } catch (error) {
+        throw new ApiError(error.status, error.message)
+    }
+})
+
+export { register, verify, login, logout, forgetPassword, resetPassword };
