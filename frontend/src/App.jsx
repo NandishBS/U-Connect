@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import {changeMessage} from './store/services/helloSlice.js'
+import {changeMessage} from './app/services/helloSlice.js'
 import {createBrowserRouter,  RouterProvider} from 'react-router-dom'
 import MainLayout from "./pages/MainLayout.jsx";
 import Login from './pages/Login.jsx'
