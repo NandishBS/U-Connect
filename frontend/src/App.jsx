@@ -1,7 +1,38 @@
 import { useDispatch, useSelector } from "react-redux";
 import {changeMessage} from './store/services/helloSlice.js'
-import Container from "./components/generalComponents/Container.jsx";
-import BlueButton from "./components/generalComponents/BlueButton.jsx";
+import {createBrowserRouter,  RouterProvider} from 'react-router-dom'
+import MainLayout from "./pages/MainLayout.jsx";
+import Login from './pages/Login.jsx'
+import Register from "./pages/Register.jsx";
+import ForgetPassword from './pages/ForgetPassword.jsx'
+import Home from "./pages/Home.jsx";
+import Profile from "./pages/Profile.jsx";
+
+const router = createBrowserRouter([
+  {
+    path:'/',
+    element:<MainLayout/>,
+    children:[
+      {
+        path : '',
+        element: <Home/>
+      },
+      {
+        path : 'profile/:usn',
+        element : <Profile/>
+      }
+    ]
+  },
+  {
+    path:'/login',
+    element:<Login/>,
+  },
+  {
+    path : '/register',
+    element : <Register/>
+  },
+])
+
 
 function App() {
   const message = useSelector(state => state.hello.message);
@@ -13,14 +44,9 @@ function App() {
       user : "nandishbs"
     }))
   }
-
+  
   return (
-    <div className="App bg-black text-white flex h-screen justify-center items-center min-w-full">
-      <Container className="" message="hello how are you">
-      <h1>welcome to U-Connect</h1>
-        <BlueButton/>
-      </Container>
-    </div>
+    <RouterProvider router={router}/>
   );
 }
 
