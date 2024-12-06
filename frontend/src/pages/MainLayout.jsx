@@ -3,7 +3,7 @@ import NavBar from '../components/navBar/NavBar'
 import { Navigate, Outlet } from 'react-router-dom'
 
 function MainLayout() {
-  const login = true;
+  const login = false;
 
   return (
     <div>

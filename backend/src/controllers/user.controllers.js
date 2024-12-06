@@ -18,7 +18,7 @@ const verify = asyncHandler(async (req, res) => {
                     new ApiResponse(
                         400,
                         null,
-                        "Missing Credentials : USN , Username, password or role  missing"
+                        "all the fields are necessary"
                     )
                 );
         }
@@ -36,7 +36,7 @@ const verify = asyncHandler(async (req, res) => {
         if (isUsernameExists) {
             return res
                 .status(409)
-                .json(new ApiResponse(409, null, "username already exists"));
+                .json(new ApiResponse(409, null, "this username already exists"));
         }
 
         const user =
@@ -65,7 +65,7 @@ const verify = asyncHandler(async (req, res) => {
                     new ApiResponse(
                         400,
                         null,
-                        "wait for 2 minute to get new otp"
+                        "wait 2 minutes for new otp"
                     )
                 );
         }
@@ -73,12 +73,12 @@ const verify = asyncHandler(async (req, res) => {
         const otp = await sendOtpTo(user.email);
 
         if (!otp) {
-            return res.status(500).json(new ApiResponse(500, null, "we didn't able to send otp your email"));
+            return res.status(500).json(new ApiResponse(500, null, "couldn't send OTP"));
         }
 
         await Otp.create({ usn, otp });
 
-        return res.status(200).json(new ApiResponse(200, null, "otp is sent to your email successfully"));
+        return res.status(200).json(new ApiResponse(200, null, "OTP sent to your mail"));
     } catch (error) {
         throw new ApiError(error.status, error.message);
     }
@@ -94,7 +94,7 @@ const register = asyncHandler(async (req, res) => {
                     new ApiResponse(
                         400,
                         null,
-                        "Missing Credentials : USN, username, password , role or OTP is missing"
+                        "all the fields are necessary"
                     )
                 );
         }
@@ -146,7 +146,7 @@ const login = asyncHandler(async (req, res) => {
         const { usn, password } = req.body;
 
         if (!usn || !password) {
-            return res.status(400).json(new ApiResponse(400, null, "Missing Credentials : USN , Username, password or role  missing"));
+            return res.status(400).json(new ApiResponse(400, null, "all the fields are necessary"));
         }
 
         const user = await User.findOne({ usn });
@@ -201,7 +201,7 @@ const forgetPassword = asyncHandler(async (req, res) => {
         const { usn } = req.body;
     
         if (!usn) {
-            return res.status(400).json(new ApiResponse(400, null, "Missing Credentials : USN "));
+            return res.status(400).json(new ApiResponse(400, null, "fill all the fields"));
         }
     
         const user = await User.findOne({ usn })
@@ -213,18 +213,18 @@ const forgetPassword = asyncHandler(async (req, res) => {
         const otpExists = await Otp.findOne({ usn });
     
         if (otpExists) {
-            return res.status(400).json(new ApiResponse(400, null, "wait for 2 minute to get new otp"));
+            return res.status(400).json(new ApiResponse(400, null, "wait 2 minutes for new otp"));
         }
     
         const otp = await sendOtpTo(user.email);
     
         if (!otp) {
-            return res.status(500).json(new ApiResponse(500, null, "we didn't able to send otp your email"));
+            return res.status(500).json(new ApiResponse(500, null, "Couldn't send OTP"));
         }
     
         await Otp.create({ usn, otp });
     
-        return res.status(200).json(new ApiResponse(200, null, "otp is sent to your email successfully"));
+        return res.status(200).json(new ApiResponse(200, null, "OTP sent to your mail"));
     } catch (error) {
         throw new ApiError(error.status, error.message)
     }

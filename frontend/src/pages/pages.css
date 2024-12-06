@@ -1,0 +1,13 @@
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  background: black;
+  -webkit-background-clip: content-box;
+  background-clip: content-box;
+  -webkit-text-fill-color: #fff;
+}
+
+
+.red{
+    color: #4c4c4c;
+}

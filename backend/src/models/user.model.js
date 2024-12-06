@@ -1,4 +1,4 @@
-import mongoose, { Schema } from 'mongoose'
+import mongoose from 'mongoose'
 import bcrypt from 'bcrypt'
 
 const userSchema = new mongoose.Schema({
@@ -33,7 +33,6 @@ const userSchema = new mongoose.Schema({
     },
     avatar: {
         type : String,
-        unique:true,
         default : '',
     },
     password: {
@@ -57,12 +56,10 @@ const userSchema = new mongoose.Schema({
     github : {
         type : String,
         default : '',
-        unique : true
     },
     linkedin : {
         type : String,
         default : '',
-        unique : true
     }
 }, {timestamps:true})
 

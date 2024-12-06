@@ -1,9 +1,9 @@
 import {configureStore} from '@reduxjs/toolkit'
-import helloReducer from './services/helloSlice.js'
+import authReducer from './authSlice.js'
 
 const store = configureStore({
-    reducer:{
-        hello : helloReducer
+    reducer : {
+        auth : authReducer
     }
 })
 
