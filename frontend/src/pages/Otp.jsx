@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import OtpInput from 'react-otp-input';
 import Body from '../components/generalComponents/Body';
 import Container from '../components/generalComponents/Container';
-import BlueButton from '../components/generalComponents/BlueButton';
+import RedButton from '../components/generalComponents/RedButton';
 import { useDispatch, useSelector } from 'react-redux';
 import authentication from '../app/services/authentication.js';
 import { toast } from 'react-toastify';
@@ -51,6 +51,7 @@ function Otp() {
                 borderRadius : '10px',
                 fontSize: '2rem',
                 fontWeight: 'bold',
+                userSelect: 'none'
             }}
             containerStyle={{
                 display: 'flex',
@@ -66,7 +67,7 @@ function Otp() {
         <div className='w-full mb-5 flex justify-end place-items-center text-lg text-cyan-500'>
             <p className='cursor-pointer hover:underline' onClick={()=>{handleResendOtp()}}>resend OTP</p>
         </div>
-        <BlueButton className="text-xl" type="button" onClick={()=>{handleSubmission()}}>Verify</BlueButton>
+        <RedButton className="text-xl" type="button" onClick={()=>{handleSubmission()}}>Verify</RedButton>
 
         {send && <Navigate to='/login' />}
         </Container>

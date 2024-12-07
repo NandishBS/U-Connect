@@ -4,7 +4,7 @@ import { Link, Navigate } from 'react-router-dom'
 import Body from '../components/generalComponents/Body';
 import Container from '../components/generalComponents/Container';
 import UConnectText from '../components/generalComponents/UConnectText';
-import BlueButton from '../components/generalComponents/BlueButton';
+import GreenButton from '../components/generalComponents/GreenButton';
 import authentication from '../app/services/authentication';
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
@@ -57,8 +57,8 @@ function Register() {
             </div>
           </div>
 
-          {loading ? <BlueButton disabled className="text-xl" type="submit">Register</BlueButton>
-          : <BlueButton className="text-xl" type="submit">Register</BlueButton>}
+          {loading ? <GreenButton disabled className="text-xl" type="submit">Register</GreenButton>
+          : <GreenButton className="text-xl" type="submit">Register</GreenButton>}
           
           <div className='w-full text-lg flex gap-3 justify-center place-items-center'>
             <p>already have an Account ?</p> <Link to='/login' className='text-cyan-400 hover:underline'>login</Link>

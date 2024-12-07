@@ -15,12 +15,12 @@ const generateRefreshToken = function (id) {
 }
 
 const decodeAccessToken = function (token) {
-    const decoded = jwt.decode(token, process.env.ACCESS_TOKEN_SECRET)
+    const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
     return decoded;
 }
 
 const decodeRefreshToken = function (token) {
-    const decoded = jwt.decode(token, process.env.REFRESH_TOKEN_SECRET)
+    const decoded = jwt.verify(token, process.env.REFRESH_TOKEN_SECRET)
     return decoded;
 }
 

@@ -9,6 +9,7 @@ import { Navigate } from "react-router-dom";
 import { clearState, verify } from "../app/authSlice.js";
 import { useDispatch, useSelector } from "react-redux";
 import OtpInput from "react-otp-input";
+import GreenButton from "../components/generalComponents/GreenButton.jsx";
 
 function ForgetPassword() {
     const { register, handleSubmit } = useForm();
@@ -137,17 +138,17 @@ function ForgetPassword() {
                         />
 
                         {loading ? (
-                            <BlueButton
+                            <GreenButton
                                 disabled
                                 className="text-xl"
                                 type="submit"
                             >
-                                Verify
-                            </BlueButton>
+                                Reset
+                            </GreenButton>
                         ) : (
-                            <BlueButton className="text-xl" type="submit">
-                                Verify
-                            </BlueButton>
+                            <GreenButton className="text-xl" type="submit">
+                                Reset
+                            </GreenButton>
                         )}
                     </form>
                 </Container>
