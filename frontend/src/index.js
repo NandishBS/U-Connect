@@ -8,9 +8,10 @@ import store from './app/store.js';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { withCredentials } from './app/interceptors/requestInterceptors.js';
+import { tokenHandlerInterceptor } from './app/interceptors/responseInterceptors.js';
 
 axios.interceptors.request.use(withCredentials)
-
+axios.interceptors.response.use(tokenHandlerInterceptor)
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
