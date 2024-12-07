@@ -287,7 +287,7 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
                 .cookie("refreshToken", refreshToken, cookieOptions)
                 .json(new ApiResponse(201, null, "access token refreshed successfully"));
         } else {
-            return res.status(500).json(new ApiResponse(201, null, "failed to generate refresh token"))
+            return res.status(403).json(new ApiResponse(403, null, "failed to generate refresh token"))
         }
     } catch (error) {
         throw new ApiError(error.status, error.message)

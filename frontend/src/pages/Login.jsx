@@ -7,6 +7,7 @@ import Body from '../components/generalComponents/Body.jsx';
 import UConnectText from '../components/generalComponents/UConnectText.jsx';
 import authentication from '../app/services/authentication.js'
 import { toast } from 'react-toastify';
+import axios from 'axios';
 
 function Login() {
   const { register, handleSubmit } = useForm();
@@ -26,11 +27,14 @@ function Login() {
     setLoading(false)
   };
 
+  const handlelogout = async ()=>{
+    const response = await authentication.logout()
+  }
 
   return (
     <Body>
 
-      <button onClick={async ()=>{ await authentication.logout()}}>logot</button>
+      <button onClick={handlelogout} >logout</button>
 
       <Container className='max-w-sm bg-gray-800 w-full border border-gray-600 border-opacity-30'>
         <h1 className ="text-3xl mt-1 mb-8 font-semibold text-center flex-wrap">
