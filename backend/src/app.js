@@ -13,9 +13,12 @@ app.use( express.static("public") );
 app.use(cookieParser());
 app.use(upload.none());
 
+app.get("/", (req, res)=>{
+    res.send("welcome to backend of my U-Connect app")
+})
+
 // routes import and declaration
 import userRouter from './routes/user.routes.js'
-
 app.use("/api/user", userRouter)
 
 
