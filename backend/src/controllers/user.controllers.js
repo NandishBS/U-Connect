@@ -290,7 +290,7 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
             return res.status(403).json(new ApiResponse(403, null, "failed to generate refresh token"))
         }
     } catch (error) {
-        throw new ApiError(error.status, error.message)
+        throw new ApiError(403, error.message)
     }
 })
 
