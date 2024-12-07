@@ -29,4 +29,7 @@ class AuthServices {
         return response
     }
 }
-export default new AuthServices
+
+const authentication = new AuthServices()
+
+export default authentication
