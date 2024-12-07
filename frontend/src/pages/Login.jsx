@@ -27,15 +27,8 @@ function Login() {
     setLoading(false)
   };
 
-  const handlelogout = async ()=>{
-    const response = await authentication.logout()
-  }
-
   return (
     <Body>
-
-      <button onClick={handlelogout} >logout</button>
-
       <Container className='max-w-sm bg-gray-800 w-full border border-gray-600 border-opacity-30'>
         <h1 className ="text-3xl mt-1 mb-8 font-semibold text-center flex-wrap">
             Welcome to <UConnectText/>

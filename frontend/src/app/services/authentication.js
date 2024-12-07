@@ -28,6 +28,10 @@ class AuthServices {
         console.log(response)
         return response
     }
+    getUserInfo = async () => {
+        const response = await axios.get(base_url + '/user/getuserinfo')
+        return response
+    }
 }
 
 const authentication = new AuthServices()
