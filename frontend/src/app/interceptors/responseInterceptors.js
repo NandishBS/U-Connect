@@ -4,7 +4,6 @@ import authentication from '../services/authentication'
 const tokenHandlerInterceptor = async (error) => {
     if(error.status === 403){
         await authentication.logout()
-        console.log("logged out successfully")
     }
     else if(error.status === 401){
         try {
