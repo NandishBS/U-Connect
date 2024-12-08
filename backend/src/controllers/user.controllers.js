@@ -179,10 +179,19 @@ const login = asyncHandler(async (req, res) => {
 });
 
 const logout = asyncHandler(async (req, res) => {
-    return res.status(201)
-        .clearCookie("accessToken",cookieOptions)
-        .clearCookie("refreshToken",cookieOptions)
-        .json(new ApiResponse(201, null, "logout successfull"))
+    // try {
+    //     const { usn } = req.user;
+        
+    //     if (!usn) {
+    //         return res.status(400).json(new ApiResponse(400, null, "Missing Credentials : USN "));
+    //     }
+        return res.status(201)
+            .clearCookie("accessToken",cookieOptions)
+            .clearCookie("refreshToken",cookieOptions)
+            .json(new ApiResponse(201, null, "logout successfull"))
+    // } catch (error) {
+    //     throw new ApiError(error.status, error.message)
+    // }
 })
 
 const forgetPassword = asyncHandler(async (req, res) => {
