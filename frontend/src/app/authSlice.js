@@ -6,7 +6,7 @@ const initialState = {
     password : '',
     role : '',
     avatar : '',
-    login : false,
+    login : true,
 }
 const authSlice = createSlice({
     name : "auth",
@@ -25,10 +25,15 @@ const authSlice = createSlice({
             state.password = ''
             state.role = ''
             state.avatar = ''
+        },
+        logout : (state, action)=>{
             state.login = false
         },
+        login : (state, action)=>{
+            state.login = true
+        }
     }
 })
 
-export const {verify , clearState } = authSlice.actions;
+export const {verify , clearState,logout, login } = authSlice.actions;
 export default authSlice.reducer;

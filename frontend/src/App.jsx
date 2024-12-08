@@ -7,6 +7,9 @@ import ForgetPassword from './pages/ForgetPassword.jsx'
 import Home from "./pages/Home.jsx";
 import Profile from "./pages/Profile.jsx";
 import Otp from "./pages/Otp.jsx";
+import { useEffect } from "react";
+import {logout , login} from './app/authSlice.js'
+import authentication from "./app/services/authentication.js";
 
 const router = createBrowserRouter([
   {
