@@ -11,6 +11,7 @@ import { withCredentials } from './app/interceptors/requestInterceptors.js';
 import { tokenHandlerInterceptor } from './app/interceptors/responseInterceptors.js';
 
 axios.interceptors.request.use(withCredentials)
+axios.interceptors.response.use((response)=>{return response}, tokenHandlerInterceptor)
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

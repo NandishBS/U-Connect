@@ -11,7 +11,7 @@ function MainLayout() {
       const userInfo =  await authentication.getUserInfo()
       console.log(userInfo)
     } catch (error) {
-      console.log("final error ", error)
+      console.log("get info catch block error", error)
     }
   }
 
