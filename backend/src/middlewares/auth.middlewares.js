@@ -14,7 +14,7 @@ const authenticateUser = asyncHandler(async (req, res, next)=>{
          req.user = user
         next()
     } catch (error) {
-        throw new ApiError(401, "authenticate user catch block"+error.message)
+        throw new ApiError(401, "authenticate user catch block" + error.message)
     }
 })
 

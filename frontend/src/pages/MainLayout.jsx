@@ -23,7 +23,7 @@ useEffect(()=>{
   },[])
 
   return (
-    <div>
+    <div className='bg-black w-screen h-screen flex justify-center items-center overflow-hidden'>
         {isLogin ? <NavBar/> : <Navigate to="/login" />}
         {isLogin ? <Outlet/> : <Navigate to="/login" />}
     </div>
