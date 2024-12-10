@@ -7,7 +7,6 @@ import Body from '../components/generalComponents/Body.jsx';
 import UConnectText from '../components/generalComponents/UConnectText.jsx';
 import authentication from '../app/services/authentication.js'
 import { toast } from 'react-toastify';
-import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../app/authSlice.js';
 

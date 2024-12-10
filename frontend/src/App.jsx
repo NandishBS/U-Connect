@@ -10,6 +10,10 @@ import Otp from "./pages/Otp.jsx";
 import { useEffect } from "react";
 import {logout , login} from './app/authSlice.js'
 import authentication from "./app/services/authentication.js";
+import Search from './pages/Search.jsx'
+import Chat from './pages/Chat.jsx'
+import CreatePost from "./pages/CreatePost.jsx";
+import Notifications from "./pages/Notifications.jsx";
 
 const router = createBrowserRouter([
   {
@@ -21,9 +25,25 @@ const router = createBrowserRouter([
         element: <Home/>
       },
       {
-        path : 'profile/:usn',
+        path : 'profile/:id',
         element : <Profile/>
-      }
+      },
+      {
+        path : 'search',
+        element: <Search/>
+      },
+      {
+        path : 'chat',
+        element: <Chat/>
+      },
+      {
+        path : 'create-post',
+        element :<CreatePost/>
+      },
+      {
+        path : 'notifications',
+        element:<Notifications/>
+      },
     ]
   },
   {

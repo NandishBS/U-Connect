@@ -1,6 +1,6 @@
 import React from 'react'
 
-function UConnectText() {
+function UConnectText({className}) {
   const style = {
     background: "linear-gradient(90deg, #ff0000, #ff5100, #ff9431)",
     WebkitBackgroundClip: "text",
@@ -8,7 +8,7 @@ function UConnectText() {
     WebkitTextFillColor : "transparent",
 }         
     return (
-    <span style={style}>
+    <span style={style} className={className}>
         U-Connect
     </span>
   )
