@@ -8,6 +8,7 @@ cloudinary.config({
 });
 
 const uploadOnCloudinary = async (localFilePath) => {
+    console.log(localFilePath)
     try{
         if(!localFilePath){
             console.log("ERROR :: uploadOnCloudinary :: could not find the localfile path")
