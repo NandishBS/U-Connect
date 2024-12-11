@@ -27,7 +27,7 @@ const authSlice = createSlice({
             state.avatar = ''
         },
         logout : (state, action)=>{
-            state.login = false
+            // state.login = false
         },
         login : (state, action)=>{
             state.login = true

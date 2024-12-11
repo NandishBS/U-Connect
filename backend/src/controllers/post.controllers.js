@@ -10,9 +10,6 @@ import { asyncHandler } from "../utils/asyncHandler.utils.js";
 import { uploadOnCloudinary } from "../utils/cloudinary.utils.js";
 
 const uploadPost = asyncHandler(async (req, res) => {
-
-    return res.status(201).json({message : "successful"})
-
     try {
         if (!req.user._id) {
             return res.status(400).json(new ApiResponse(400, null, "Missing Credentials : user id is missing "));
@@ -20,59 +17,129 @@ const uploadPost = asyncHandler(async (req, res) => {
 
         const author = req.user._id;
         const { type, description } = req.body;
-        const content = req.files.content[0]
-        const coverImage = req.files.coverImage[0]
+        let content , coverImage;
 
+        if(req.files?.content){
+            content = req.files.content[0]
+        }
 
-        // if (!(author && type && description && content)) {
-        //     return res.status(400).json(new ApiResponse(400, null, "Missing Credentials : author, posttype, description or content is missing"));
-        // }
+        if(req.files?.coverImage){
+            coverImage = req.files.coverImage[0]
+        }
 
-        // const contentFile = await uploadOnCloudinary(content.path)
-        // if (!contentFile) {
-        //     return res.status(500).json(new ApiResponse(500, null, "error while uploading"));
-        // }
-        // if (type === 'post') {
-        //     const post = await Post.create({
-        //         author, type, description, content: contentFile.secure_url
-        //     })
-        //     return res.status(201).json(new ApiResponse(201, post, "post uploaded successfully"))
-        // }
+        if (!(author && type && description && content)) {
+            return res.status(400).json(new ApiResponse(400, null, "Missing Credentials : author, posttype, description or content is missing"));
+        }
 
-        // if (type === 'project') {
-        //     let coverImageFile;
-        //     if (coverImage) {
-        //         coverImageFile = await uploadOnCloudinary(coverImage.path)
-        //         if (!coverImageFile) {
-        //             return res.status(500).json(new ApiResponse(500, null, "error while uploading"));
-        //         }
-        //     }
-        //     const { title, sourceCode, projectLink } = req.body;
+        const contentFile = await uploadOnCloudinary(content.path)
 
-        //     const post = await Post.create({
-        //         author, type, description, content: contentFile.secure_url, title, sourceCode, projectLink, coverImage:coverImageFile?.secure_url
-        //     })
+        if (!contentFile) {
+            return res.status(500).json(new ApiResponse(500, null, "error while uploading"));
+        }
+        if (type === 'post') {
+            const post = await Post.create({
+                author, type, description, content: contentFile.secure_url
+            })
+            return res.status(201).json(new ApiResponse(201, post, "post uploaded successfully"))
+        }
 
-        //     if(post){
-        //         return res.status(201).json(new ApiResponse(201, post, "project uploaded successfully"))
-        //     }
-        // }
+        if (type === 'project') {
+            let coverImageFile;
+            if (coverImage) {
+                coverImageFile = await uploadOnCloudinary(coverImage.path)
+                if (!coverImageFile) {
+                    return res.status(500).json(new ApiResponse(500, null, "error while uploading"));
+                }
+            }
+            const { title, sourceCode, projectLink } = req.body;
 
-        // return res.status(409).json(new ApiResponse(409, null, "type should be post or project type"))
+            const post = await Post.create({
+                author, type, description, content: contentFile.secure_url, title, sourceCode, projectLink, coverImage:coverImageFile?.secure_url
+            })
+
+            if(post){
+                return res.status(201).json(new ApiResponse(201, post, "project uploaded successfully"))
+            }
+        }
+
+        return res.status(409).json(new ApiResponse(409, null, "type should be post or project type"))
 
     } catch (error) {
-        console.log( "in catch block", error.message)
         throw new ApiError(error.status, "error in uploading post " +error.message)
     }
 })
 
-const updatePost = asyncHandler(async (req, res) => {
 
-})
 
-const deletePost = asyncHandler(async (req, res) => {
 
-})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 const connect = asyncHandler(async (req, res) => {
     const connectfrom = req.user._id;
