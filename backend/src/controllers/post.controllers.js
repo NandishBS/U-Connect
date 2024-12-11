@@ -11,7 +11,7 @@ import { uploadOnCloudinary } from "../utils/cloudinary.utils.js";
 
 const uploadPost = asyncHandler(async (req, res) => {
 
-    return res.status(201).json(req.body)
+    return res.status(201).json({message : "successful"})
 
     try {
         if (!req.user._id) {
