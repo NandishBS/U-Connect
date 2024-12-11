@@ -1,5 +1,6 @@
 import { v2 as cloudinary } from 'cloudinary';
 import fs from 'fs'
+import { Readable } from 'stream';
 
 cloudinary.config({ 
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME, 
@@ -7,28 +8,34 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
-const uploadOnCloudinary = async (localFilePath) => {
-    console.log(localFilePath)
-    try{
-        if(!localFilePath){
-            console.log("ERROR :: uploadOnCloudinary :: could not find the localfile path")
-            return null
+const uploadOnCloudinary = async (fileBuffer) => {
+    return new Promise((resolve, reject) => {
+        if (!fileBuffer) {
+            console.log("ERROR :: uploadOnCloudinary :: could not find the fileBuffer");
+            return reject(new Error("File buffer is required"));
         }
-        const response = await cloudinary.uploader.upload(localFilePath,{
-            resource_type : "auto"
-        })
-        if(!response){
-            return null
-        }
-        console.log("file is uploaded successfully on cloudinary",response.url)
-        console.log(localFilePath)
-        fs.unlinkSync(localFilePath)
-        return(response)
-    }catch(err){
-        console.log("ERROR :: uploadOnCloudinary :: error while uploading :: ",err)
-        fs.unlinkSync(localFilePath);
-        return (null)
-    }   
+
+        const bufferStream = new Readable();
+        bufferStream.push(fileBuffer);
+        bufferStream.push(null);
+
+        const stream = cloudinary.uploader.upload_stream(
+            {
+                resource_type: 'auto', 
+                folder: 'u-connect', 
+            },
+            (error, result) => {
+                if (error) {
+                    console.log("Error uploading stream:", error);
+                    return reject(error); 
+                }
+                console.log("Upload successful, file URL:", result.url);
+                resolve(result); 
+            }
+        );
+
+        bufferStream.pipe(stream);
+    });   
 }
 
 export {uploadOnCloudinary}

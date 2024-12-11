@@ -80,7 +80,7 @@ function CreatePost() {
           control={control}
           defaultValue={null}
           render={({field}) => (
-            <FileInput className={"w-80 h-80 flex-shrink-0"} placeHolderText="Upload the CoverImage" accept="image/*, video/*" onChange={field.onChange} />
+            <FileInput className={"w-80 h-80 flex-shrink-0"} placeHolderText="Upload the CoverImage" accept="image/*" onChange={field.onChange} />
           )}
         />
           </div>

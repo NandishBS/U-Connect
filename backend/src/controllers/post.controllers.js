@@ -27,16 +27,13 @@ const uploadPost = asyncHandler(async (req, res) => {
             coverImage = req.files.coverImage[0]
         }
         
-        console.log(req.files)
-
-        console.log(author, type, description, content)
 
         if (!(author && type && description && content)) {
             return res.status(400).json(new ApiResponse(400, null, "Missing Credentials : author, posttype, description or content is missing"));
         }
 
-        const contentFile = await uploadOnCloudinary(content.path)
-
+        const contentFile = await uploadOnCloudinary(content.buffer)
+        console.log(contentFile)
         if (!contentFile) {
             return res.status(500).json(new ApiResponse(500, null, "error while uploading"));
         }

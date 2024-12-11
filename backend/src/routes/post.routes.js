@@ -9,7 +9,6 @@ postRouter.post("/upload-post",authenticateUser, upload.fields([
     { name: 'content', maxCount: 1 }, {name: 'coverImage' , maxCount:1}
   ]), uploadPost);
 
-
 postRouter.post("/like",authenticateUser , like)
 postRouter.post("/comment",authenticateUser, comment)
 postRouter.post("/replycomment",authenticateUser, replyComment)
