@@ -7,7 +7,11 @@ class PostService {
         for (const key in data) {
             formData.append(key, data[key])
         }
-        const response = await axios.post(base_url + '/post/upload-post', formData);
+        const response = await axios.post(base_url + '/post/upload-post', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+              },
+        });
         return response
     }
 }

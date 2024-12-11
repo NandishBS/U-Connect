@@ -20,7 +20,6 @@ const uploadPost = asyncHandler(async (req, res) => {
         const content = req.files.content[0]
         const coverImage = req.files.coverImage[0]
 
-        console.log(content)
 
         if (!(author && type && description && content)) {
             return res.status(400).json(new ApiResponse(400, null, "Missing Credentials : author, posttype, description or content is missing"));
@@ -56,10 +55,11 @@ const uploadPost = asyncHandler(async (req, res) => {
             }
         }
 
-        return res.status(409).json(new ApiResponse(201, null, "type should be post or project type"))
+        return res.status(409).json(new ApiResponse(409, null, "type should be post or project type"))
 
     } catch (error) {
-        throw new ApiError(error.status, "error in uploading post "+error.message)
+        console.log( "in catch block", error.message)
+        throw new ApiError(error.status, "error in uploading post " +error.message)
     }
 })
 

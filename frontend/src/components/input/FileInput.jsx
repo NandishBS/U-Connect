@@ -24,7 +24,7 @@ function FileInput({className, placeHolderText , required, onChange ,...props}) 
         } catch (error) {
           setImg('')
         }
-        return onChange(event.target.files[0])
+        return onChange(event.target.files)
       }}
       {...props}
       />
