@@ -10,6 +10,9 @@ import { asyncHandler } from "../utils/asyncHandler.utils.js";
 import { uploadOnCloudinary } from "../utils/cloudinary.utils.js";
 
 const uploadPost = asyncHandler(async (req, res) => {
+
+    return res.status(201).json(req.body)
+
     try {
         if (!req.user._id) {
             return res.status(400).json(new ApiResponse(400, null, "Missing Credentials : user id is missing "));
@@ -20,7 +23,6 @@ const uploadPost = asyncHandler(async (req, res) => {
         const content = req.files.content[0]
         const coverImage = req.files.coverImage[0]
 
-        res.status(201).json({author, type, description, content , coverImage})
 
         // if (!(author && type && description && content)) {
         //     return res.status(400).json(new ApiResponse(400, null, "Missing Credentials : author, posttype, description or content is missing"));
