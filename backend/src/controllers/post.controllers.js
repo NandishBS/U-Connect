@@ -19,6 +19,8 @@ const uploadPost = asyncHandler(async (req, res) => {
         const { type, description } = req.body;
         let content , coverImage;
 
+        console.log("this is req.files ", req.files)
+
         if(req.files?.content){
             content = req.files.content[0]
         }
