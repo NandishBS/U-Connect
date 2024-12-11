@@ -27,6 +27,7 @@ const uploadPost = asyncHandler(async (req, res) => {
             coverImage = req.files.coverImage[0]
         }
         
+        console.log(content , type, description , content)
 
         if (!(author && type && description && content)) {
             return res.status(400).json(new ApiResponse(400, null, "Missing Credentials : author, posttype, description or content is missing"));
