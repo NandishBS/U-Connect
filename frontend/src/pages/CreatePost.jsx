@@ -18,10 +18,11 @@ function CreatePost() {
     try {
       const response = await postService.uploadPost(data);
       console.log(response)
-      toast.success(response.data.message)
+      // toast.success(response.data.message)
       // dispatch(login()) append the new post in both profileSlice and postsSlice
     } catch (error) {
-      toast.error(error.response.data.message)
+      console.log(error)
+      // toast.error(error.response.data.message)
     }
     setLoading(false)
   }

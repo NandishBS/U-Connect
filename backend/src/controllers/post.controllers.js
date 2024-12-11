@@ -20,42 +20,43 @@ const uploadPost = asyncHandler(async (req, res) => {
         const content = req.files.content[0]
         const coverImage = req.files.coverImage[0]
 
+        res.status(201).json({author, type, description, content , coverImage})
 
-        if (!(author && type && description && content)) {
-            return res.status(400).json(new ApiResponse(400, null, "Missing Credentials : author, posttype, description or content is missing"));
-        }
+        // if (!(author && type && description && content)) {
+        //     return res.status(400).json(new ApiResponse(400, null, "Missing Credentials : author, posttype, description or content is missing"));
+        // }
 
-        const contentFile = await uploadOnCloudinary(content.path)
-        if (!contentFile) {
-            return res.status(500).json(new ApiResponse(500, null, "error while uploading"));
-        }
-        if (type === 'post') {
-            const post = await Post.create({
-                author, type, description, content: contentFile.secure_url
-            })
-            return res.status(201).json(new ApiResponse(201, post, "post uploaded successfully"))
-        }
+        // const contentFile = await uploadOnCloudinary(content.path)
+        // if (!contentFile) {
+        //     return res.status(500).json(new ApiResponse(500, null, "error while uploading"));
+        // }
+        // if (type === 'post') {
+        //     const post = await Post.create({
+        //         author, type, description, content: contentFile.secure_url
+        //     })
+        //     return res.status(201).json(new ApiResponse(201, post, "post uploaded successfully"))
+        // }
 
-        if (type === 'project') {
-            let coverImageFile;
-            if (coverImage) {
-                coverImageFile = await uploadOnCloudinary(coverImage.path)
-                if (!coverImageFile) {
-                    return res.status(500).json(new ApiResponse(500, null, "error while uploading"));
-                }
-            }
-            const { title, sourceCode, projectLink } = req.body;
+        // if (type === 'project') {
+        //     let coverImageFile;
+        //     if (coverImage) {
+        //         coverImageFile = await uploadOnCloudinary(coverImage.path)
+        //         if (!coverImageFile) {
+        //             return res.status(500).json(new ApiResponse(500, null, "error while uploading"));
+        //         }
+        //     }
+        //     const { title, sourceCode, projectLink } = req.body;
 
-            const post = await Post.create({
-                author, type, description, content: contentFile.secure_url, title, sourceCode, projectLink, coverImage:coverImageFile?.secure_url
-            })
+        //     const post = await Post.create({
+        //         author, type, description, content: contentFile.secure_url, title, sourceCode, projectLink, coverImage:coverImageFile?.secure_url
+        //     })
 
-            if(post){
-                return res.status(201).json(new ApiResponse(201, post, "project uploaded successfully"))
-            }
-        }
+        //     if(post){
+        //         return res.status(201).json(new ApiResponse(201, post, "project uploaded successfully"))
+        //     }
+        // }
 
-        return res.status(409).json(new ApiResponse(409, null, "type should be post or project type"))
+        // return res.status(409).json(new ApiResponse(409, null, "type should be post or project type"))
 
     } catch (error) {
         console.log( "in catch block", error.message)
