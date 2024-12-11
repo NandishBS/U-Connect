@@ -7,6 +7,11 @@ class PostService {
         for (const key in data) {
             formData.append(key, data[key])
         }
+
+        for(const key in formData){
+            console.log(key , ':' , formData)
+        }
+
         try {
             const response = await axios.post(base_url + '/post/upload-post', formData, {
                 headers: {

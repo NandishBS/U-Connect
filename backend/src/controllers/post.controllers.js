@@ -50,7 +50,7 @@ const uploadPost = asyncHandler(async (req, res) => {
         if (type === 'project') {
             let coverImageFile;
             if (coverImage) {
-                coverImageFile = await uploadOnCloudinary(coverImage.path)
+                coverImageFile = await uploadOnCloudinary(coverImage.buffer)
                 if (!coverImageFile) {
                     return res.status(500).json(new ApiResponse(500, null, "error while uploading"));
                 }
