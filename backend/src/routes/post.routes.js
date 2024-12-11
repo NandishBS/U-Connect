@@ -5,7 +5,7 @@ import { comment, connect, like, populate, populateLike, replyComment, uploadPos
 
 const postRouter = Router();
 
-postRouter.post("/upload",authenticateUser,upload.single('content'), uploadPost);
+postRouter.post("/upload-post",authenticateUser,upload.fields([{name:"content", maxCount:1},{name:"coverImage", maxCount:1}]), uploadPost);
 postRouter.post("/like",authenticateUser , like)
 postRouter.post("/comment",authenticateUser, comment)
 postRouter.post("/replycomment",authenticateUser, replyComment)

@@ -9,7 +9,7 @@ const postSchema = new mongoose.Schema({
     type : {
         type : String,
         required:true,
-        enum : ['public','private','project','important'] 
+        enum : ['post','project'] 
     },
     content : {
         type : String,

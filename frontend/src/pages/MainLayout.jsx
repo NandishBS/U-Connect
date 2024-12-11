@@ -4,6 +4,7 @@ import { Navigate, Outlet } from 'react-router-dom'
 import authentication from '../app/services/authentication';
 import { useDispatch, useSelector } from 'react-redux';
 import {logout,login } from '../app/authSlice.js'
+import './pages.css'
 
 function MainLayout() {
   const isLogin = useSelector(state => state.auth.login);
@@ -23,7 +24,7 @@ useEffect(()=>{
   },[])
 
   return (
-    <div className='bg-black w-screen h-screen flex justify-center items-center overflow-hidden'>
+    <div className='bg-black scrollbar-hide w-screen h-screen flex justify-center items-center overflow-auto'>
         {isLogin ? <NavBar/> : <Navigate to="/login" />}
         {isLogin ? <Outlet/> : <Navigate to="/login" />}
     </div>

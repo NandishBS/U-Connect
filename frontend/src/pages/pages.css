@@ -11,3 +11,11 @@ input:-webkit-autofill:focus {
 .red{
     color: #4c4c4c;
 }
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; /* Hide scrollbar for Chrome, Safari, and Edge */
+}
+.scrollbar-hide {
+  -ms-overflow-style: none; /* Hide scrollbar for Internet Explorer and Edge */
+  scrollbar-width: none; /* Hide scrollbar for Firefox */
+}
