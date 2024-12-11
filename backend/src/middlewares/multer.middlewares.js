@@ -4,11 +4,11 @@ import path from 'path'
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, '/tmp')
+        cb(null, './public/temp')
     },
     filename: function(req,file,cb){
-        const uniqueName = uuidv4() + path.extname(file.originalname); // Unique UUID
-        cb(null, uniqueName);
+        const uniqueName = uuidv4() + file.originalname
+        cb(null, uniqueName)
     }
 })
 
