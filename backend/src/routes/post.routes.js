@@ -1,13 +1,17 @@
 import { Router } from "express";
 import { upload } from "../middlewares/multer.middlewares.js";
 import { authenticateUser } from "../middlewares/auth.middlewares.js";
-import { comment, connect, like, populate, populateLike, replyComment, uploadPost } from "../controllers/post.controllers.js";
+import { comment, connect, deletePost, editPost, getPosts, like, populate, populateLike, replyComment, uploadPost } from "../controllers/post.controllers.js";
 
 const postRouter = Router();
 
 postRouter.post("/upload-post",authenticateUser, upload.fields([
     { name: 'content', maxCount: 1 }, {name: 'coverImage' , maxCount:1}
   ]), uploadPost);
+postRouter.post("/edit-post/:post_id", authenticateUser, upload.single('coverImage'), editPost );
+postRouter.post("/delete-post/:post_id", authenticateUser, deletePost);
+postRouter.get("/get-posts",authenticateUser, getPosts);
+
 
 postRouter.post("/like",authenticateUser , like)
 postRouter.post("/comment",authenticateUser, comment)

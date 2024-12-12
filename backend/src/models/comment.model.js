@@ -11,6 +11,15 @@ const commentSchema = new mongoose.Schema({
         ref : 'User',
         required : true
     },
+    replies : {
+        type : [{
+            author : {
+                type : mongoose.Schema.Types.ObjectId,
+                ref : 'User',
+            },
+            text : String
+        }]
+    },
     text : String   
 }, {timestamps:true});
 

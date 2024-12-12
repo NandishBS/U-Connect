@@ -7,9 +7,7 @@ import TextAreaInput from '../components/input/TextAreaInput'
 import BlueButton from '../components/generalComponents/BlueButton'
 import postService from '../app/services/post'
 import { toast } from 'react-toastify'
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import uploading from "../assets/uploading.webp"
-import Modal from '../components/generalComponents/Modal'
 
 function CreatePost() {
   const { control , handleSubmit } = useForm()
@@ -48,7 +46,7 @@ function CreatePost() {
           control={control}
           defaultValue={null}
           render={({field}) => (
-            <FileInput className={"w-80 h-96 flex-shrink-0"} placeHolderText="Upload the content" required={true} accept="image/*, video/*" 
+            <FileInput className={"w-80 h-96 flex-shrink-0"} placeHolderText="Upload the content" required={true} accept="image/*, video/*"
             onChange={field.onChange}/>
           )}
         />
@@ -122,9 +120,9 @@ function CreatePost() {
         </div>
         </div>
         <div className='flex px-7 justify-center place-items-center mt-4 '>
-          <BlueButton  className={"max-w-screen-sm"} disabled = {loading} > Upload </BlueButton> 
+          <BlueButton  className={"max-w-screen-sm"} disabled = {loading} > Upload </BlueButton>
         </div>
-      </form>  
+      </form>
       {loading && 
       <div className='fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex justify-center place-items-center'>
       <div className='absolute z-50 w-80 h-80 flex justify-center place-items-center'>

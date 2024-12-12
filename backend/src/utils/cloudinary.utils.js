@@ -38,7 +38,27 @@ const uploadOnCloudinary = async (fileBuffer) => {
     });   
 }
 
-export {uploadOnCloudinary}
+const deleteOnCloudinary = async (url) => {
+    try {
+        const urlParts = url.split('/');
+        const urlWithExtension = urlParts[urlParts.length-2] + "/" + urlParts[urlParts.length - 1]
+        const publicId = urlWithExtension.split('.')[0];
+
+        console.log(publicId)
+
+        if(!publicId){
+            return null;
+        }
+    
+        cloudinary.uploader.destroy(publicId, (error, result) => {
+            console.log(error)
+        });
+    } catch (error) {
+        throw error
+    }
+}
+
+export {uploadOnCloudinary ,deleteOnCloudinary }
 
     
   
