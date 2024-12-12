@@ -31,9 +31,17 @@ const authSlice = createSlice({
         },
         login : (state, action)=>{
             state.login = true
+        },
+        setUser : (state, action)=>{
+            const {usn, username, password, role , avatar} = action.payload
+            state.usn = usn
+            state.username = username 
+            state.password = password
+            state.role = role
+            state.avatar = avatar
         }
     }
 })
 
-export const {verify , clearState,logout, login } = authSlice.actions;
+export const {verify , clearState, logout, login, setUser } = authSlice.actions;
 export default authSlice.reducer;

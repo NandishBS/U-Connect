@@ -7,6 +7,9 @@ import TextAreaInput from '../components/input/TextAreaInput'
 import BlueButton from '../components/generalComponents/BlueButton'
 import postService from '../app/services/post'
 import { toast } from 'react-toastify'
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import uploading from "../assets/uploading.webp"
+import Modal from '../components/generalComponents/Modal'
 
 function CreatePost() {
   const { control , handleSubmit } = useForm()
@@ -14,15 +17,21 @@ function CreatePost() {
   const [loading, setLoading] = useState(false)
 
   const onSubmit = async (data) => {
+    if(!data.content){
+      toast.error("Content is required!",{
+        position : "top-right"
+      })
+      return
+    }
+
     setLoading(true)
     try {
       const response = await postService.uploadPost(data);
-      console.log(response)
-      // toast.success(response.data.message)
+      toast.success(response.data.message)
       // dispatch(login()) append the new post in both profileSlice and postsSlice
     } catch (error) {
       console.log(error)
-      // toast.error(error.response.data.message)
+      toast.error(error.response.data.message)
     }
     setLoading(false)
   }
@@ -113,9 +122,15 @@ function CreatePost() {
         </div>
         </div>
         <div className='flex px-7 justify-center place-items-center mt-4 '>
-          <BlueButton className={"max-w-screen-sm"}> Upload </BlueButton>
+          <BlueButton  className={"max-w-screen-sm"} disabled = {loading} > Upload </BlueButton> 
         </div>
-      </form>
+      </form>  
+      {loading && 
+      <div className='fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex justify-center place-items-center'>
+      <div className='absolute z-50 w-80 h-80 flex justify-center place-items-center'>
+        <img src={uploading} alt='Uploading....'/>
+      </div>
+    </div>}
       <div className='h-16 w-screen md:hidden '></div>
       </div>
     </>

@@ -17,7 +17,7 @@ function FileInput({className, placeHolderText , required, onChange ,...props}) 
       <input
       ref={ref}
       type='file' 
-      hidden 
+      hidden
       onChange={(event)=>{
         try {
           setImg(URL.createObjectURL(event.target.files[0]))

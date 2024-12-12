@@ -3,7 +3,7 @@ import NavBar from '../components/navBar/NavBar'
 import { Navigate, Outlet } from 'react-router-dom'
 import authentication from '../app/services/authentication';
 import { useDispatch, useSelector } from 'react-redux';
-import {logout,login } from '../app/authSlice.js'
+import {logout,login, setUser } from '../app/authSlice.js'
 import './pages.css'
 
 function MainLayout() {
@@ -13,6 +13,7 @@ function MainLayout() {
     try {
       const userInfo =  await authentication.getUserInfo()
       dispatch( login() )
+      dispatch( setUser(userInfo.data.data) )
     } catch (error) {
       console.log("get info catch block error", error)
       dispatch( logout() )
