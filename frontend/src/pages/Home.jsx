@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import Modal from '../components/generalComponents/Modal'
+import Post from '../components/post/Post'
 
 function Home() {
   const [edit, setEdit] = useState(false)
@@ -7,10 +8,15 @@ function Home() {
     setEdit(false)
   }
   return (
-    <div>
-      this is home
-      <button onClick={()=>{setEdit(true)}}>clickhere</button>
-      {edit && <Modal close={closeModal} />}
+    <div className='max-w-lg w-full mx-auto h-full'>
+      <Post/>
+      <Post/>
+      <Post/>
+      <Post/>
+      <Post/>
+      <Post/>
+      <Post/>
+      <Post/>
     </div>
   )
 }

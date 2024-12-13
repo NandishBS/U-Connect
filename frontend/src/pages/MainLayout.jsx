@@ -27,8 +27,7 @@ useEffect(()=>{
   return (
     <div className='bg-black w-screen h-screen flex justify-center items-center overflow-y-auto overflow-hidden'>
         {isLogin ? <NavBar/> : <Navigate to="/login" />}
-        {isLogin ? <Outlet/> : <Navigate to="/login" />}
-  
+        {isLogin ? <Outlet/> : <Navigate to="/login" />}  
     </div>
   )
 }

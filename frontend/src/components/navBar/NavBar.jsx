@@ -3,6 +3,7 @@ import { IoChatboxEllipses, IoChatboxEllipsesOutline ,IoAddCircle , IoAddCircleO
 import { NavLink } from 'react-router-dom';
 import UConnectText from '../generalComponents/UConnectText';
 import { FaUser, FaRegUser } from "react-icons/fa6";
+import UConnectLogo from '../../assets/U-Connect_logo.png'
 
 function NavBar() {
   const navLinkClassName = "bg-black h-full hover:bg-gray-800 rounded-md p-3 flex justify-center place-items-center md:h-14 w-full"
