@@ -10,7 +10,7 @@ import { toast } from 'react-toastify'
 import uploading from "../assets/uploading.webp"
 
 function CreatePost() {
-  const { control , handleSubmit } = useForm()
+  const { control , handleSubmit , reset } = useForm()
   const [isProject, setIsProject] = useState(false)
   const [loading, setLoading] = useState(false)
 
@@ -26,12 +26,15 @@ function CreatePost() {
     try {
       const response = await postService.uploadPost(data);
       toast.success(response.data.message)
-      // dispatch(login()) append the new post in both profileSlice and postsSlice
     } catch (error) {
       console.log(error)
       toast.error(error.response.data.message)
     }
     setLoading(false)
+    reset()
+    setTimeout(() => {
+      window.location.reload();
+    }, 2000);
   }
 
   return (
@@ -46,7 +49,7 @@ function CreatePost() {
           control={control}
           defaultValue={null}
           render={({field}) => (
-            <FileInput className={"w-80 h-96 flex-shrink-0"} placeHolderText="Upload the content" required={true} accept="image/*, video/*"
+            <FileInput className={"w-80 h-96 flex-shrink-0"} placeHolderText="Upload the content" required={true} accept="image/*"
             onChange={field.onChange}/>
           )}
         />

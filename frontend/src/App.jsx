@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import {createBrowserRouter,  RouterProvider} from 'react-router-dom'
+import {createBrowserRouter,  Navigate,  NavLink,  RouterProvider} from 'react-router-dom'
 import MainLayout from "./pages/MainLayout.jsx";
 import Login from './pages/Login.jsx'
 import Register from "./pages/Register.jsx";
@@ -25,7 +25,11 @@ const router = createBrowserRouter([
         element: <Home/>
       },
       {
-        path : 'profile/:id',
+        path : 'profile/:usn',
+        element : <Profile/>
+      },
+      {
+        path : 'profile',
         element : <Profile/>
       },
       {

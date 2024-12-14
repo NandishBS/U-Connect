@@ -45,7 +45,7 @@ function Login() {
 
           <input className='w-full p-3 placeholder-gray-500 bg-gray-800 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-cyan-400 appearance-none autofill:bg-gray-800' placeholder='Password' autoComplete='off' type="password" required {...register('password')}/>
 
-          {loading ? <BlueButton disabled className="text-xl" type="submit">Login</BlueButton>
+          {loading ? <BlueButton disabled className="text-xl cursor-wait" type="submit">Login</BlueButton>
           : <BlueButton className="text-xl" type="submit">Login</BlueButton>}
       </form>   
           <div className='w-full mt-3 text-lg flex gap-3 justify-center place-items-center'>

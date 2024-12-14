@@ -40,7 +40,7 @@ function NavBar() {
       text: "Notification"
     },
     {
-      path : '/profile/:id',
+      path : '/profile',
       icon1 : <FaUser className={iconClassName}/>,
       icon2 : <FaRegUser className={iconClassName}/>,
       text : "Profile"
