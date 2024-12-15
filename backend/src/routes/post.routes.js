@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { upload } from "../middlewares/multer.middlewares.js";
 import { authenticateUser } from "../middlewares/auth.middlewares.js";
-import { comment, connect, deletePost, editPost, getPosts, like, populate, populateLike, replyComment, uploadPost } from "../controllers/post.controllers.js";
+import { comment, connect, deletePost, editPost, getPosts, like, populate, populateLike, replyComment, unlike, uploadPost } from "../controllers/post.controllers.js";
 
 const postRouter = Router();
 
@@ -11,13 +11,14 @@ postRouter.post("/upload-post",authenticateUser, upload.fields([
 postRouter.post("/edit-post/:post_id", authenticateUser, upload.single('coverImage'), editPost );
 postRouter.post("/delete-post/:post_id", authenticateUser, deletePost);
 postRouter.get("/get-posts",authenticateUser, getPosts);
+postRouter.post("/like",authenticateUser , like);
+postRouter.post("/unlike", authenticateUser, unlike);
+postRouter.post("/comment",authenticateUser, comment);
+postRouter.post("/replycomment",authenticateUser, replyComment);
 
 
-postRouter.post("/like",authenticateUser , like)
-postRouter.post("/comment",authenticateUser, comment)
-postRouter.post("/replycomment",authenticateUser, replyComment)
-postRouter.post("/connect",authenticateUser, connect)
 
+postRouter.post("/connect",authenticateUser, connect);
 postRouter.post("/populate",populate);
 postRouter.post("/populatelike",populateLike)
 

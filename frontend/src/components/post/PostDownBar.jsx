@@ -5,6 +5,7 @@ import { likePost, unlikePost } from '../../app/postSlice.js';
 import Modal from '../generalComponents/Modal.jsx';
 import UserCard from '../user/UserCard.jsx';
 import OpenedPost from './OpenedPost.jsx';
+import postService from '../../app/services/post.js';
 
 function PostDownBar({post}) {
     const [liked, setLiked] = useState(false)
@@ -24,11 +25,11 @@ function PostDownBar({post}) {
 
     const handleLike = ()=>{
         if(liked){
-            //call unlike function
+            postService.unlike(post._id)
             dispatch(unlikePost({post : post._id , usn : user.usn}))
           setLiked(false)
         }else{
-            //call like function
+            postService.like(post._id)
             dispatch(likePost({post: post._id, author: { usn: user.usn, username: user.username, avatar: user.avatar,},}))
             setLiked(true)
 

@@ -192,10 +192,79 @@ const getPosts = asyncHandler(async (req, res)=>{
     }
 })
 
+const like = asyncHandler(async (req, res) => {
+    try {
+        const author = req.user._id;
+        const post = req.body.postId;
+    
+        if(!author || !post){
+            return res.status(400).json(new ApiResponse(400, null, "author_id or post_id is missing"))
+        }
+    
+        const response = await Like.create({ author, post });
+        return res.status(201).json(new ApiResponse(201, response, "liked message successfully"))
+    } catch (error) {
+        throw new ApiError(error.status, "error in adding like :: " + error.message)
+    }
+})
 
+const unlike = asyncHandler(async (req,res)=>{
+    try {
+        const author = req.user._id;
+        const {postId} = req.body;
+    
+        const like = Like.find({author, post : postId});
+    
+        if(!like.author.equals(req.user._id)){
+            return res.status(400).json(new ApiResponse(400, null, "you cannot dislike this post"))
+        }
+    
+        const response = await Like.findByIdAndDelete(like._id);
+        return res.status(201).json(new ApiResponse(201, null, "unlike successfully"))
+    } catch (error) {
+        throw new ApiError(error.status, "error in unlike :: " + error.message)
+    }
+})
 
+const comment = asyncHandler(async (req, res) => {
+    try {
+        const post = req.body.postId;
+        const author = req.user._id;
+        const text = req.body.text;
+    
+        if(!author || !post || !text){
+            return res.status(400).json(new ApiResponse(400, null, "author_id or post_id or text is missing"))
+        }
+        const response = await Comment.create({ post, author, text })
+        return res.status(201).json(new ApiResponse(201, response, "comment added successfully"))
+    } catch (error) {
+        throw new ApiError(error.status, "error in commenting the post :: " + error.message)
+    }
+})
 
-
+const replyComment = asyncHandler(async (req, res) => {
+    try {
+        const author = req.user._id;
+        const comment_id = req.body.commentId;
+        const text = req.body.text;
+    
+        if(!(author && comment_id && text)){
+            return res.status(400).json(new ApiResponse(400, null, "author or comment-id or text is missing"))
+        }
+        
+        let comment = await Comment.findById(comment_id);
+        if(!comment){
+            return res.status(409).json(new ApiResponse(409, null, "couldn't find the comment"))
+        }
+    
+        comment.replies = [{author, text} , ...replies]
+        
+        const response = await comment.save();
+        return res.status(201).json(new ApiResponse(201, response, "reply added comment added successfully"))
+    } catch (error) {
+        throw new ApiError(error.status, "error in adding reply to the comment :: " + error.message)
+    }
+})
 
 
 
@@ -272,29 +341,11 @@ const connect = asyncHandler(async (req, res) => {
     return res.status(201).json(new ApiResponse(201, { connectfrom, connectwith }, "request sent successfully"))
 })
 
-const like = asyncHandler(async (req, res) => {
-    const author = req.user._id;
-    const post = req.body.postId;
-    console.log(req.body.postId)
-    const response = await Like.create({ author, post });
-    return res.status(201).json(new ApiResponse(201, { author, post }, "liked message successfully"))
-})
 
-const comment = asyncHandler(async (req, res) => {
-    const author = req.user._id;
-    const post = req.body.postId;
-    const text = req.body.text;
-    const response = await Comment.create({ post, author, text })
-    return res.status(201).json(new ApiResponse(201, response, "comment added successfully"))
-})
 
-const replyComment = asyncHandler(async (req, res) => {
-    const author = req.user._id;
-    const comment = req.body.commentId;
-    const text = req.body.text;
-    const response = await Replycomment.create({ comment, author, text })
-    return res.status(201).json(new ApiResponse(201, response, "reply added comment added successfully"))
-})
+
+
+
 
 
 
@@ -324,4 +375,4 @@ const populate = async (req, res) => {
     res.json(users)
 }
 
-export { uploadPost, editPost, deletePost, getPosts, like, comment, replyComment, connect, populate, populateLike }
+export { uploadPost, editPost, deletePost, getPosts, like, unlike, comment, replyComment, connect, populate, populateLike }

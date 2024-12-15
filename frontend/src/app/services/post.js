@@ -68,6 +68,33 @@ class PostService {
         }
     }
 
+    like = async (postId) =>{
+        try {
+            const response = await axios.post(base_url + `/post/like`,{postId});
+            console.log(response)
+            return response
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    unlike = async(postId) =>{
+        try{
+            const response = await axios.post(base_url+`/post/unlike`,{postId});
+            console.log(response)
+            return response;
+        }catch (error){
+            console.log(error)
+        }
+    }
+
+    comment = async() =>{
+
+    }
+
+    replyComment = async() =>{
+
+    }
 }
 
 const postService = new PostService;
