@@ -213,8 +213,11 @@ const unlike = asyncHandler(async (req,res)=>{
         const author = req.user._id;
         const {postId} = req.body;
     
-        const like = Like.find({author, post : postId});
-    
+        const like = await Like.findOne({author, post : postId});
+        if(!like){
+            return res.status(400).json(new ApiResponse(400, null, "couldn't find the like"))
+        }
+
         if(!like.author.equals(req.user._id)){
             return res.status(400).json(new ApiResponse(400, null, "you cannot dislike this post"))
         }
