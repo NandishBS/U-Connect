@@ -42,7 +42,8 @@ function EditPost({post}) {
                         <form className="w-full" onSubmit={handleSubmit(onSubmit)} >
                             <div className="w-full flex justify-center place-items-center flex-wrap gap-3">
                                 <div>
-                                    <Controller name="description" control={control} defaultValue={""} render={({ field }) => (
+                                    <Controller name="description" control={control} 
+                                    defaultValue={post.description} render={({ field }) => (
                                             <TextAreaInput className={ "max-h-80 min-h-80 text-md p-5" }
                                                 placeholder="Description......"
                                                 required={true}
@@ -60,12 +61,13 @@ function EditPost({post}) {
                                     <Controller
                                         name="coverImage"
                                         control={control}
-                                        defaultValue={null}
+                                        defaultValue={""}
                                         render={({ field }) => (
                                             <FileInput
                                                 className={
                                                     "w-80 h-80 flex-shrink-0"
                                                 }
+                                                prevImage={post.coverImage}
                                                 placeHolderText="Upload the CoverImage"
                                                 accept="image/*"
                                                 onChange={field.onChange}
@@ -78,7 +80,7 @@ function EditPost({post}) {
                                     <Controller
                                         name="title"
                                         control={control}
-                                        defaultValue={""}
+                                        defaultValue={post.title}
                                         render={({ field }) => (
                                             <TextInput
                                                 className="min-w-80 bg-gray-900 mb-5 placeholder:text-gray-300"
@@ -91,7 +93,7 @@ function EditPost({post}) {
                                     <Controller
                                         name="sourceCode"
                                         control={control}
-                                        defaultValue={""}
+                                        defaultValue={post.sourceCode}
                                         render={({ field }) => (
                                             <TextInput
                                                 className="min-w-80 bg-gray-900 mb-5 placeholder:text-gray-300"
@@ -104,7 +106,7 @@ function EditPost({post}) {
                                     <Controller
                                         name="projectLink"
                                         control={control}
-                                        defaultValue={""}
+                                        defaultValue={post.projectLink}
                                         render={({ field }) => (
                                             <TextInput
                                                 className="min-w-80 bg-gray-900 mb-5 placeholder:text-gray-300"
