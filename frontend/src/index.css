@@ -2,3 +2,9 @@
 @tailwind components;
 @tailwind utilities;
   
+@layer base {
+    * {
+      overflow-wrap: break-word; /* Ensures words break within any element */
+      word-wrap: break-word;     /* Backwards compatibility */
+    }
+  }

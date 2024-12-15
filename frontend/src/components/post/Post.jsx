@@ -11,7 +11,7 @@ let post = {
     author: {
         _id: "67535e6514297ac869694bda",
         usn: "4UB21CS032",
-        username: "kelly_evans",
+        username: "kelly_evansjsdflksjdlfsjdflaksjdflas",
         avatar: "https://res.cloudinary.com/dd2qbbabx/image/upload/v1733675043/qa19cne5zbf6s5vz6rgd.jpg",
     },
     type: "project",
@@ -89,11 +89,9 @@ let post = {
     id: "6755fd8b327a48aa2d1e51b5",
 };
 
-function Post({}) {
-    
-
+function Post({post}) {
     return (
-        <div className="max-w-md mx-auto mb-7 aspect-[10/16] p-1 border border-transparent border-b-gray-700">
+        <div className={`max-w-md mx-auto mb-7 ${post.type === 'post' ? 'aspect-[10/16]' : ""} p-1 border border-transparent border-b-gray-700`}>
             <PostTopCard post={post} />
             {post.type === "post" && <PostContent post={post}/>}
             {post.type === "project" && <ProjectCard post={post}/>}

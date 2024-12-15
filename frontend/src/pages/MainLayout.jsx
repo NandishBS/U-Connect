@@ -9,7 +9,6 @@ import './pages.css'
 function MainLayout() {
   const isLogin = useSelector(state => state.auth.login);
   const dispatch = useDispatch();
-  
   const authenticateUser = async()=>{
     try {
       const userInfo =  await authentication.getUserInfo()

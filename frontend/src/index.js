@@ -15,7 +15,6 @@ axios.interceptors.response.use((response)=>{return response}, tokenHandlerInter
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
- <StrictMode>
     <Provider store={store}>
       <App />
       <ToastContainer
@@ -30,6 +29,5 @@ root.render(
         pauseOnHover
         theme="colored"/>
     </Provider>
-  </StrictMode>
 );
 

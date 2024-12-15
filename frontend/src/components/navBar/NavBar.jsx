@@ -48,7 +48,7 @@ function NavBar() {
   ]
   
   return (
-    <div className='bg-black border border-gray-600 absolute left-0 bottom-0 w-screen h-16 md:top-0 md:h-screen md:w-fit lg:w-2/12 flex min-w-fit border-l-0
+    <div className='bg-black border border-gray-600 fixed left-0 bottom-0 w-screen h-16 md:top-0 md:h-screen md:w-fit lg:w-2/12 flex min-w-fit border-l-0
     md:flex-col justify-center place-items-center md:justify-start md:place-items-start md:gap-2 p-2 text-xl'>
           <div className='flex justify-center place-items-center md:w-full transition-all'>
             <div className='transition-all hidden lg:block my-2 mt-3 font-semibold'><UConnectText className={"text-4xl"}/></div>

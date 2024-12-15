@@ -60,7 +60,7 @@ class PostService {
 
     getPosts = async (page = 1 , limit = 20) =>{
         try {
-            const response = await axios.post(base_url + `/post/get-posts?page=${page}&limit=${limit}`);
+            const response = await axios.get(base_url + `/post/get-posts?page=${page}&limit=${limit}`);
             console.log(response)
             return response
         } catch (error) {

@@ -10,7 +10,7 @@ function ProjectCard({post}) {
             </div>
             <div className='w-72 h-32 flex-col'>
                 
-                <div className='w-full text-lg h-1/2 flex justify-center border border-transparent p-2 border-b-gray-700 place-items-end'>{post.title ? post.title.toUpperCase() : "Empty Title"}</div>
+                <div className='w-full text-lg h-1/2 flex justify-center border border-transparent p-2 border-b-gray-700 place-items-end break-words overflow-clip'>{post.title ? post.title.toUpperCase() : "Empty Title"}</div>
                 
                 <div className='w-full h-1/2 flex justify-center place-items-center gap-3'>
                 <a href={post.sourceCode} ><div className='p-2 cursor-pointer border flex justify-center place-items-center gap-2 border-gray-400 hover:text-gray-500 rounded-full'><FaGithub size={25}/> Source Code</div></a>
