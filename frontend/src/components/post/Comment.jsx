@@ -5,6 +5,7 @@ import Modal from '../generalComponents/Modal.jsx'
 import { useDispatch, useSelector } from 'react-redux';
 import { IoIosSend } from "react-icons/io";
 import { addReply } from '../../app/postSlice.js';
+import postService from '../../app/services/post';
 
 function Comment({comment , post}) {
     const [openReply, setOpenReply] = useState(false);
@@ -15,7 +16,7 @@ function Comment({comment , post}) {
     const handleComment = () =>{
         setOpenReply(false)
 
-        //add reply logic
+        postService.replyComment(comment._id, myCommentRef.current.value)
 
         const newReply = {
             post_id : post._id,

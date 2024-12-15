@@ -9,6 +9,7 @@ import { IoIosSend } from "react-icons/io";
 import { useDispatch, useSelector } from 'react-redux'
 import { addComment } from '../../app/postSlice.js'
 import "./style.css"
+import postService from '../../app/services/post.js'
 
 function OpenedPost({post , close}) {
     const [openReply, setOpenReply] = useState(false);
@@ -19,7 +20,7 @@ function OpenedPost({post , close}) {
     const handleComment = () =>{
         setOpenReply(false)
 
-        //add comment logic
+        postService.comment(post._id, myCommentRef.current.value)
 
         const newComment = {
             post: post._id,

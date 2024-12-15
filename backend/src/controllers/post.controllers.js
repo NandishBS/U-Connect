@@ -259,9 +259,8 @@ const replyComment = asyncHandler(async (req, res) => {
         if(!comment){
             return res.status(409).json(new ApiResponse(409, null, "couldn't find the comment"))
         }
-    
-        comment.replies = [{author, text} , ...replies]
-        
+
+        comment.replies = [{author, text} , ...comment.replies]
         const response = await comment.save();
         return res.status(201).json(new ApiResponse(201, response, "reply added comment added successfully"))
     } catch (error) {

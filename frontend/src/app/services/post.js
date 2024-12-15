@@ -88,12 +88,25 @@ class PostService {
         }
     }
 
-    comment = async() =>{
-
+    comment = async(postId, text) =>{
+        try{
+            const response = await axios.post(base_url+`/post/comment`,{postId , text});
+            console.log(response)
+            return response;
+        }catch (error){
+            console.log(error)
+        }
     }
 
-    replyComment = async() =>{
-
+    replyComment = async(commentId, text) =>{
+        console.log(commentId, text)
+        try{
+            const response = await axios.post(base_url+`/post/replycomment`,{commentId , text});
+            console.log(response)
+            return response;
+        }catch (error){
+            console.log(error)
+        }
     }
 }
 

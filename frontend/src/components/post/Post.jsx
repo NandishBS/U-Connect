@@ -5,7 +5,6 @@ import PostDownBar from "./PostDownBar.jsx";
 import PostDescription from "./PostDescription.jsx";
 import ProjectCard from "./ProjectCard.jsx";
 
-
 // let post = {
 //     _id: "6755fd8b327a48aa2d1e51b2",
 //     author: {
