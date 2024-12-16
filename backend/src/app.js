@@ -17,9 +17,11 @@ app.use(cookieParser());
 // routes import and declaration
 import userRouter from './routes/user.routes.js'
 import postRouter from './routes/post.routes.js'
+import profileRouter from './routes/profile.routes.js'
 
 app.use("/api/user", userRouter)
 app.use("/api/post", postRouter)
+app.use("/api/profile", profileRouter)
 
 app.get("/", (req, res)=>{
     res.send("welcome to backend of my U-Connect app")

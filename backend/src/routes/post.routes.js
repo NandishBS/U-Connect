@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { upload } from "../middlewares/multer.middlewares.js";
 import { authenticateUser } from "../middlewares/auth.middlewares.js";
-import { comment, connect, deletePost, editPost, getPosts, like, populate, populateLike, replyComment, unlike, uploadPost } from "../controllers/post.controllers.js";
+import { comment, deletePost, editPost, getPosts, like, replyComment, unlike, uploadPost } from "../controllers/post.controllers.js";
 
 const postRouter = Router();
 
@@ -16,11 +16,6 @@ postRouter.post("/unlike", authenticateUser, unlike);
 postRouter.post("/comment",authenticateUser, comment);
 postRouter.post("/replycomment",authenticateUser, replyComment);
 
-
-
-postRouter.post("/connect",authenticateUser, connect);
-postRouter.post("/populate",populate);
-postRouter.post("/populatelike",populateLike)
 
 
 export default postRouter;

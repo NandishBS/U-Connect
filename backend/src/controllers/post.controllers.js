@@ -1,8 +1,6 @@
 import Comment from "../models/comment.model.js";
-import Connection from "../models/connection.model.js";
 import Like from "../models/like.model.js";
 import Post from "../models/post.model.js";
-import Replycomment from "../models/replycomment.model.js";
 import User from "../models/user.model.js";
 import { ApiError } from "../utils/ApiError.utils.js";
 import { ApiResponse } from "../utils/ApiResponse.utils.js";
@@ -260,7 +258,7 @@ const replyComment = asyncHandler(async (req, res) => {
             return res.status(409).json(new ApiResponse(409, null, "couldn't find the comment"))
         }
 
-        comment.replies = [{author, text} , ...comment.replies]
+        comment.replies = [...comment.replies, {author, text}]
         const response = await comment.save();
         return res.status(201).json(new ApiResponse(201, response, "reply added comment added successfully"))
     } catch (error) {
@@ -269,112 +267,4 @@ const replyComment = asyncHandler(async (req, res) => {
 })
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-const connect = asyncHandler(async (req, res) => {
-    const connectfrom = req.user._id;
-    const connectwith = req.body._id;
-
-    const response = await Connection.create({
-        connectedUsers: [connectfrom, connectwith]
-    })
-    return res.status(201).json(new ApiResponse(201, { connectfrom, connectwith }, "request sent successfully"))
-})
-
-
-
-
-
-
-
-
-
-
-const populateLike = async (req, res) => {
-    const connectfrom = "67557beefa233f31a561a7e9";
-    const users = await User.find({}, { _id: 1 })
-
-    users.map((user, id) => {
-        if (id % 3 === 0) {
-            Connection.create({
-                connectedUsers: [connectfrom, user._id]
-            })
-        }
-    })
-}
-
-const populate = async (req, res) => {
-    const users = await User.find({}, { _id: 1 })
-    users.map((user, id) => {
-        const post = Post.create({
-            author: user._id, type: 'public', description: `discription text ${id}`, content: 'https://res.cloudinary.com/dd2qbbabx/image/upload/v1733675043/qa19cne5zbf6s5vz6rgd.jpg'
-        })
-    })
-
-    console.log(users)
-    res.json(users)
-}
-
-export { uploadPost, editPost, deletePost, getPosts, like, unlike, comment, replyComment, connect, populate, populateLike }
+export { uploadPost, editPost, deletePost, getPosts, like, unlike, comment, replyComment }

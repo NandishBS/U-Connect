@@ -60,6 +60,12 @@ const userSchema = new mongoose.Schema({
     linkedin : {
         type : String,
         default : '',
+    },
+    connections : {
+        type : [{
+            type : mongoose.Schema.Types.ObjectId,
+            ref : 'User'
+        }]
     }
 }, {timestamps:true})
 
@@ -76,6 +82,28 @@ userSchema.pre("save", async function (next) {
 userSchema.methods.isPasswordCorrect = async function (password) {
     return await bcrypt.compare(password, this.password)
 }
+
+userSchema.virtual("posts", {
+    ref:'Post',
+    localField:"_id",
+    foreignField: "author",
+  })
+
+  userSchema.virtual("invitations", {
+    ref : 'Pending',
+    localField : "_id",
+    foreignField: "to"
+  })
+
+  userSchema.virtual("invitationSent", {
+    ref : "Pending",
+    localField : '_id',
+    foreignField : "from"
+  })
+
+
+  userSchema.set("toObject", { virtuals: true });
+  userSchema.set("toJSON", { virtuals: true });
 
 const User = mongoose.model("User",userSchema)
 
