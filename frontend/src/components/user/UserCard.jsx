@@ -20,10 +20,10 @@ function UserCard({user, className , vertical=false , avatarSize=12}) {
 
             <div className="w-full h-full flex place-items-center hover:text-gray-400">
                 <Link className={vertical && 'flex place-items-center gap-2'} to={`/profile/${user.usn}`}>
-                        <div className="font-bold text-lg">
+                        <div className="font-bold text-md">
                             {user.username}
                         </div>
-                        <div className={vertical && 'text-lg'}>
+                        <div className={vertical && 'text-md'}>
                             {user.usn}
                         </div>           
                 </Link>

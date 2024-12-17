@@ -41,7 +41,7 @@ function Register() {
 
           <input className='w-full uppercase p-3 placeholder-gray-500 bg-gray-800 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-cyan-400 appearance-none autofill:bg-gray-800' placeholder='USN' type="text" autoComplete='off' required {...register('usn')} />
 
-          <input className='w-full p-3 placeholder-gray-500 bg-gray-800 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-cyan-400 appearance-none autofill:bg-gray-800' placeholder='Username' type="text" autoComplete="off" required {...register('username')} />
+          <input className='w-full p-3 placeholder-gray-500 bg-gray-800 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-cyan-400 appearance-none autofill:bg-gray-800' placeholder='Username' type="text" autoComplete="off" required min="20" {...register('username')} />
 
           <input className='w-full p-3 placeholder-gray-500 bg-gray-800 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-cyan-400 appearance-none autofill:bg-gray-800' placeholder='Password' type="password" minLength="8" required {...register('password')}/>
 

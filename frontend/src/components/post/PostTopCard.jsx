@@ -50,6 +50,7 @@ function PostTopCard({post}) {
                         [{post.author.usn}]{" "}
                     </p>
                 </Link>
+                <div></div>
             </div>
 
             {post.author.usn === useSelector((state) => state.auth.usn) && (

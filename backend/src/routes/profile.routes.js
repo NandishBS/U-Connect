@@ -7,6 +7,7 @@ import { acceptInvitation, checkFriendStatus, deleteInvitation, disconnect, getU
 const profileRouter = Router();
 
 profileRouter.get("/get-profile/:usn", authenticateUser, getUserProfile);
+profileRouter.get("/get-profile", authenticateUser, getUserProfile);
 profileRouter.post("/send-invitation", authenticateUser, sendInvitation);
 profileRouter.post('/accept-invitation', authenticateUser, acceptInvitation);
 profileRouter.post('/delete-invitation', authenticateUser, deleteInvitation);

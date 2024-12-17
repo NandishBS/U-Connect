@@ -36,19 +36,19 @@ function Comment({comment , post}) {
   return (
     <div className='w-full'>
         <UserCard user={comment.author} className={"text-sm"} vertical={true} avatarSize={7}/>
-            <div className='ml-10'>
-                <div className='break-words'>{comment.text}</div>
+            <div className='ml-8'>
+                <div className='break-words max-w-80'>{comment.text}</div>
                 <div onClick={()=>{setOpenReply(true)}} className='text-cyan-500 cursor-pointer'>reply</div>
             </div>
-            <div className='ml-10'>
+            <div className='ml-8 break-words'>
                 {comment.replies.map(reply => 
                     <div className='flex justify-center place-items-center' >
-                        <div className='w-6 '>
+                        <div className='w-4'>
                             <MdOutlineSubdirectoryArrowRight />
                         </div>
-                        <div>
+                        <div className='break-words overflow-hidden min-w-full'>
                         <UserCard user={reply.author} className={"text-sm"} vertical={true} avatarSize={7}/>
-                        <div className='ml-10 break-words'>{reply.text}</div>
+                        <div className='ml-8 w-full overflow-hidden max-w-72'><p className='line-wrap break-words'>{reply.text}</p></div>
                         </div> 
                     </div>
                 )}

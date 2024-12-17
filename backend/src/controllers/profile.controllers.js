@@ -6,8 +6,8 @@ import {asyncHandler} from '../utils/asyncHandler.utils.js'
 
 const getUserProfile = asyncHandler(async(req , res)=>{
     try {
-        const usn = req.params.usn;
-        console.log(usn)
+        const usn = req.params.usn || req.user.usn;
+        
         let userProfile = await User.findOne({usn},{password : 0, refreshToken:0, createdAt:0, updatedAt:0, __v:0})
         userProfile = await userProfile.populate({path:"posts",populate:[
             {path:"author", select: "usn username avatar"},
