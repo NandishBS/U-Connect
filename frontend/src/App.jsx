@@ -14,6 +14,9 @@ import Search from './pages/Search.jsx'
 import Chat from './pages/Chat.jsx'
 import CreatePost from "./pages/CreatePost.jsx";
 import Notifications from "./pages/Notifications.jsx";
+import Post from "./components/post/Post.jsx";
+import ProfilePosts from "./components/user/ProfilePosts.jsx";
+import ProfileProjects from "./components/user/ProfileProjects.jsx";
 
 const router = createBrowserRouter([
   {
@@ -25,12 +28,12 @@ const router = createBrowserRouter([
         element: <Home/>
       },
       {
-        path : 'profile/:usn',
-        element : <Profile/>
+        path : 'profile/:usn/',
+        element : <Profile/>,
       },
       {
         path : 'profile',
-        element : <Profile/>
+        element : <Profile/>,
       },
       {
         path : 'search',

@@ -7,7 +7,7 @@ import ProjectCard from "./ProjectCard.jsx";
 
 function Post({post}) {
     return (
-        <div className={`max-w-md mx-auto mb-7 ${post.type === 'post' ? 'aspect-[10/16]' : ""} p-1 border border-transparent border-b-gray-700`}>
+        <div className={`max-w-full mx-auto mb-7 ${post.type === 'post' ? 'aspect-[10/16]' : ""} p-1 border border-transparent border-b-gray-700`}>
             <PostTopCard post={post} />
             {post.type === "post" && <PostContent post={post}/>}
             {post.type === "project" && <ProjectCard post={post}/>}
