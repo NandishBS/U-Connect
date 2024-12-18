@@ -58,7 +58,7 @@ const profileSlice = createSlice({
                 }
                 return post
             })
-        }
+        },
     }
 })
 

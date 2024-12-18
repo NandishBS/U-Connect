@@ -28,6 +28,47 @@ class ProfileService{
             });
             return response;
     }
+
+    checkFriendStatus = async (_id) => {
+        const response = await axios.post(base_url + `/profile/check-friend-status`,{_id})
+        return response.data.data.status
+    }
+
+    sendInvitation = async(_id) =>{
+        try {
+            const response = await axios.post(base_url + '/profile/send-invitation',{_id})
+            console.log(response)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    acceptInvitation = async(_id)=>{
+        try {
+            const response = await axios.post(base_url + '/profile/accept-invitation',{_id})
+            console.log(response)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    deleteInvitation = async(_id)=>{
+        try {
+            const response = await axios.post(base_url + '/profile/delete-invitation',{_id})
+            console.log(response)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    disconnect = async (_id)=>{
+        try {
+            const response = await axios.post(base_url + '/profile/disconnect',{_id})
+            console.log(response)
+        } catch (error) {
+            console.log(error)
+        }
+    }
 }
 
 const profileService = new ProfileService;

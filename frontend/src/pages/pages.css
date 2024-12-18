@@ -12,13 +12,13 @@ input:-webkit-autofill:focus {
     color: #4c4c4c;
 }
 
-/* .scrollbar-hide::-webkit-scrollbar {
+.scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
 .scrollbar-hide {
   -ms-overflow-style: none; 
   scrollbar-width: none;
-} */
+}
 
 ::-webkit-scrollbar {
   width: 10px;

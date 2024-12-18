@@ -33,7 +33,6 @@ function EditProfile({profile}) {
                                     defaultValue={profile.bio} render={({ field }) => (
                                             <TextAreaInput className={ "max-h-80 min-h-80 text-md p-5" }
                                                 placeholder="your bio.."
-                                                required={true}
                                                 value={field.value}
                                                 onChange={field.onChange}
                                             />

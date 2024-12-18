@@ -303,4 +303,9 @@ const getUserInfo = asyncHandler(async (req,res)=>{
     return res.status(200).json(new ApiResponse(200, userInfo , "userinfo fetched successfully"));
 })
 
-export { register, verify, login, logout, forgetPassword, resetPassword, refreshAccessToken , getUserInfo};
+const getAllUsers = asyncHandler(async (req,res)=>{
+    const users = await User.find({}, {usn:1, username:1, avatar:1})
+    return res.status(200).json(new ApiResponse(200, users, "all users fetched successfully"))
+})
+
+export { register, verify, login, logout, forgetPassword, resetPassword, refreshAccessToken ,getAllUsers, getUserInfo};
