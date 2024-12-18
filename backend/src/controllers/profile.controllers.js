@@ -39,11 +39,6 @@ const editProfile = asyncHandler(async (req,res)=>{
             return res.status(400).json(new ApiResponse(400, null, "profile Id is missing"));
         }
 
-        const isUsernameExists = await User.find({username})
-
-        if(isUsernameExists.length > 1){
-            return res.status(400).json(new ApiResponse(400, null, "username already exists"))
-        }
 
         const prevProfile = await User.findById(profile_id);
 
@@ -57,7 +52,15 @@ const editProfile = asyncHandler(async (req,res)=>{
 
 
             prevProfile.bio = bio
-            prevProfile.username = username
+            if(prevProfile.username !== username){
+                const isUsernameExists = await User.find({username})
+                if(isUsernameExists){
+                    return res.status(409).json(new ApiResponse(409, null , "username already exisits"))
+                }
+                else{
+                    prevProfile.username = username
+                }
+            }
             prevProfile.github = github
             prevProfile.linkedin = linkedin
 
@@ -75,7 +78,7 @@ const editProfile = asyncHandler(async (req,res)=>{
             }
             return res.status(201).json(new ApiResponse(201, newProfile, "profile edited successfully"))
     } catch (error) {
-        throw new ApiError(error.status, "error in editing the profile :: " + error.message)
+        throw new ApiError(error.status, "username already exists")
     }
 })
 
