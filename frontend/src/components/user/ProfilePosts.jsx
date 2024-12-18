@@ -2,13 +2,12 @@ import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import Post from './post/Post.jsx'
 import Modal from '../generalComponents/Modal.jsx'
-import PostsCards from './PostsCards.jsx'
 import { FaXmark } from "react-icons/fa6";
 
 function ProfilePosts({posts}) {
   posts = posts.filter(post => post.type === 'post')
   const [openPost, setOpenPost] = useState(false)
-
+  const [openEdit, setOpenEdit] = useState(false)
   return (
     <>
       {posts.map((post, index) => <div className='aspect-square w-1/3 p-1 cursor-pointer'>

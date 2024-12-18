@@ -11,6 +11,23 @@ class ProfileService{
             console.log(error)
         }
     }
+    
+    editProfile = async (profile_id , data) => {
+            const formData = new FormData();
+            for (const key in data) {
+                formData.append(key, data[key])
+            }
+
+            for (const key in data){
+                console.log(key, data[key])
+            }
+            const response = await axios.post(base_url + `/profile/edit-profile/${profile_id}`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+            return response;
+    }
 }
 
 const profileService = new ProfileService;

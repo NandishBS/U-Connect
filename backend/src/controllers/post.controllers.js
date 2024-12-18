@@ -118,7 +118,7 @@ const editPost = asyncHandler(async (req, res) => {
             if (!newPost) {
                 return res.status(500).json(new ApiResponse(500, null, "error in editing the post"))
             }
-            return res.status(201).json(new ApiResponse(500, newPost, "file edited successfully"))
+            return res.status(201).json(new ApiResponse(201, newPost, "file edited successfully"))
         }
     } catch (error) {
         throw new ApiError(error.status, "error in editing the post :: " + error.message)

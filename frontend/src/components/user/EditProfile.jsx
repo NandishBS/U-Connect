@@ -1,26 +1,26 @@
 import React from 'react'
-import { Controller, useForm } from "react-hook-form";
-import FileInput from '../../input/FileInput.jsx';
-import TextAreaInput from '../../input/TextAreaInput.jsx';
-import postService from '../../../app/services/post.js';
+import { Controller, useForm } from 'react-hook-form';
+import profileService from '../../app/services/profile';
 import { toast } from 'react-toastify';
-import BlueButton from '../../generalComponents/BlueButton.jsx';
-import TextInput from '../../input/TextInput.jsx';
+import TextAreaInput from '../input/TextAreaInput';
+import FileInput from '../input/FileInput';
+import TextInput from '../input/TextInput';
+import BlueButton from '../generalComponents/BlueButton';
 
 
-function EditPost({post}) {
+function EditProfile({profile}) {
     const { control, handleSubmit, reset } = useForm();
-    
 
     const onSubmit = async (data)=>{ 
         try {
-            const response = await postService.editPost(post._id, data);
+            const response = await profileService.editProfile(profile._id , data);
             toast.success(response.data.message);
             setTimeout(() => {
                 window.location.reload();
             }, 2000);
         } catch (error) {
-            console.log(error);
+            console.log(error)
+            toast.error(error.response.data.message)
         }
     }
 
@@ -29,10 +29,10 @@ function EditPost({post}) {
                         <form className="w-full" onSubmit={handleSubmit(onSubmit)} >
                             <div className="w-full flex justify-center place-items-center flex-wrap gap-3">
                                 <div>
-                                    <Controller name="description" control={control} 
-                                    defaultValue={post.description} render={({ field }) => (
+                                    <Controller name="bio" control={control} 
+                                    defaultValue={profile.bio} render={({ field }) => (
                                             <TextAreaInput className={ "max-h-80 min-h-80 text-md p-5" }
-                                                placeholder="Description......"
+                                                placeholder="your bio.."
                                                 required={true}
                                                 value={field.value}
                                                 onChange={field.onChange}
@@ -42,11 +42,11 @@ function EditPost({post}) {
                                 </div>
                             </div>
                             <div
-                                className={`${post.type === "project" ? "block" : "hidden"} w-full flex justify-center place-items-center mt-3 flex-wrap gap-3`}
+                                className={`w-full flex justify-center place-items-center mt-3 flex-wrap gap-3`}
                             >
                                 <div>
                                     <Controller
-                                        name="coverImage"
+                                        name="avatar"
                                         control={control}
                                         defaultValue={""}
                                         render={({ field }) => (
@@ -54,7 +54,7 @@ function EditPost({post}) {
                                                 className={
                                                     "w-80 h-80 flex-shrink-0"
                                                 }
-                                                prevImage={post.coverImage}
+                                                prevImage={profile.avatar}
                                                 placeHolderText="Upload the CoverImage"
                                                 accept="image/*"
                                                 onChange={field.onChange}
@@ -65,39 +65,39 @@ function EditPost({post}) {
 
                                 <div>
                                     <Controller
-                                        name="title"
+                                        name="username"
                                         control={control}
-                                        defaultValue={post.title}
+                                        defaultValue={profile.username}
                                         render={({ field }) => (
                                             <TextInput
                                                 className="min-w-80 bg-gray-900 mb-5 placeholder:text-gray-300"
-                                                placeholder="Title"
+                                                placeholder="Username.."
                                                 value={field.value}
                                                 onChange={field.onChange}
                                             />
                                         )}
                                     />
                                     <Controller
-                                        name="sourceCode"
+                                        name="github"
                                         control={control}
-                                        defaultValue={post.sourceCode}
+                                        defaultValue={profile.github}
                                         render={({ field }) => (
                                             <TextInput
                                                 className="min-w-80 bg-gray-900 mb-5 placeholder:text-gray-300"
-                                                placeholder="Source Code"
+                                                placeholder="Github link"
                                                 value={field.value}
                                                 onChange={field.onChange}
                                             />
                                         )}
                                     />
                                     <Controller
-                                        name="projectLink"
+                                        name="linkedin"
                                         control={control}
-                                        defaultValue={post.projectLink}
+                                        defaultValue={profile.linkedin}
                                         render={({ field }) => (
                                             <TextInput
                                                 className="min-w-80 bg-gray-900 mb-5 placeholder:text-gray-300"
-                                                placeholder="Project Link"
+                                                placeholder="Linkedin Link"
                                                 value={field.value}
                                                 onChange={field.onChange}
                                             />
@@ -117,4 +117,4 @@ function EditPost({post}) {
   )
 }
 
-export default EditPost
+export default EditProfile

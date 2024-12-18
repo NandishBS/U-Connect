@@ -3,6 +3,7 @@ import User from '../models/user.model.js'
 import { ApiError } from '../utils/ApiError.utils.js';
 import { ApiResponse } from '../utils/ApiResponse.utils.js'
 import {asyncHandler} from '../utils/asyncHandler.utils.js'
+import { deleteOnCloudinary, uploadOnCloudinary } from '../utils/cloudinary.utils.js';
 
 const getUserProfile = asyncHandler(async(req , res)=>{
     try {
@@ -24,6 +25,57 @@ const getUserProfile = asyncHandler(async(req , res)=>{
         return res.status(200).json(new ApiResponse(200, userProfile, "user profile fetched successfully"))
     } catch (error) {
         throw new ApiError(error.status, "error in fetching userprofile :: " + error.message)
+    }
+})
+
+const editProfile = asyncHandler(async (req,res)=>{
+    try {
+        const { profile_id } = req.params;
+        const { username, bio, github, linkedin } = req.body;
+        const avatar = req.file;
+        const userId = await User.findById(req.user?._id, { _id: 1 });
+
+        if (!profile_id) {
+            return res.status(400).json(new ApiResponse(400, null, "profile Id is missing"));
+        }
+
+        const isUsernameExists = await User.find({username})
+
+        if(isUsernameExists.length > 1){
+            return res.status(400).json(new ApiResponse(400, null, "username already exists"))
+        }
+
+        const prevProfile = await User.findById(profile_id);
+
+        if (! prevProfile._id.equals(userId._id)) {
+            return res.status(400).json(new ApiResponse(400, null, "you cannot edit this profile"))
+        }
+
+        if (!prevProfile) {
+            return res.status(409).json(new ApiResponse(409, null, "profile Id is missing"));
+        }
+
+
+            prevProfile.bio = bio
+            prevProfile.username = username
+            prevProfile.github = github
+            prevProfile.linkedin = linkedin
+
+            if (avatar) {
+                const deletedResult = await deleteOnCloudinary(prevProfile.avatar)
+                const newAvatar = await uploadOnCloudinary(avatar.buffer)
+                if (!newAvatar) {
+                    return res.status(500).json(new ApiResponse(500, null, "error in uploading data on cloudinary"))
+                }
+                prevProfile.avatar = newAvatar.secure_url;
+            }
+            const newProfile = await prevProfile.save();
+            if (!newProfile) {
+                return res.status(500).json(new ApiResponse(500, null, "error in editing the profile"))
+            }
+            return res.status(201).json(new ApiResponse(201, newProfile, "profile edited successfully"))
+    } catch (error) {
+        throw new ApiError(error.status, "error in editing the profile :: " + error.message)
     }
 })
 
@@ -154,4 +206,4 @@ const disconnect = asyncHandler(async (req,res)=>{
     }
 })
 
-export {getUserProfile , sendInvitation , acceptInvitation , deleteInvitation, checkFriendStatus , disconnect}
+export {getUserProfile, editProfile , sendInvitation , acceptInvitation , deleteInvitation, checkFriendStatus , disconnect}

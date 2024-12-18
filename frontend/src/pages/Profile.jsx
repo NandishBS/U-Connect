@@ -9,6 +9,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { clearProfile, setPosts, setProfile } from '../app/profileSlice';
 import ProfilePosts from '../components/user/ProfilePosts';
 import ProfileProjects from '../components/user/ProfileProjects';
+import { MdEdit } from "react-icons/md";
+import { IoLogOut } from "react-icons/io5";
+import authentication from '../app/services/authentication';
+import EditProfile from '../components/user/EditProfile';
 
 const profile1 = {
   "_id": "67535e6514297ac869694bd1",
@@ -1315,6 +1319,18 @@ function Profile() {
     const [loading , setLoading] = useState(true)
     const dispatch = useDispatch()
     const [togglePosts, setTogglePosts] = useState(true);
+    const [showEdit, setShowEdit] = useState(false);
+    const [showOptions, setShowOptions] = useState(false);
+    
+    const logout = async ()=>{
+        try {
+            const response = await authentication.logout()
+            window.location.reload()
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
 
     const fetchProfile = async ()=>{
       try {
@@ -1359,8 +1375,8 @@ function Profile() {
           <div className='w-3/5'>
             <div className='flex justify-between place-items-center break-words gap-2'>
               <p className='text-xl px-2 max-w-full line-clamp-1 break-words overflow-clip'>{profile.username}</p>
-              <div className='h-full px-2'>
-                <IoMdSettings className='hover:animate-spin' size={30}/>
+              <div onClick={()=>{setShowOptions(true)}} className='h-full px-2'>
+                <IoMdSettings className='hover:animate-spin cursor-pointer' size={30}/>
               </div>
             </div>
 
@@ -1388,6 +1404,47 @@ function Profile() {
             {togglePosts && <ProfilePosts posts = {posts} />}
             {!togglePosts && <ProfileProjects/>}
         </div>
+
+
+        
+        {showOptions && (
+                <Modal
+                    className="bg-opacity-30"
+                    close={() => {
+                        setShowOptions(false);
+                    }}
+                >
+                    <div className="w-80 rounded-lg border border-gray-500 flex-col p-2 bg-gray-900">
+                        <div onClick={() => { setShowOptions(false); setShowEdit(true); }}
+                            className="w-full flex gap-2 justify-center place-items-center cursor-pointer border-b border-b-gray-700 rounded-md mb-2 hover:bg-gray-800 h-10" >
+                            <MdEdit className="size-5" />
+                            <span className="font-semibold">Edit</span>
+                        </div>
+
+                        <div onClick={()=>{logout()}} className="w-full flex gap-2 justify-center place-items-center cursor-pointer border-b border-b-gray-700 rounded-md mb-2 hover:bg-gray-800 h-10">
+                            <IoLogOut className='size-6'/>
+                            <span className='font-semibold'>Logout</span>
+                        </div>
+
+                        {/* <div
+                            onClick={() => {
+                                setShowOptions(false);
+                                setShowDelete(true);
+                            }}
+                            className="w-full flex gap-2 justify-center place-items-center cursor-pointer border-b border-b-gray-700 rounded-md mb-2 hover:bg-gray-800 text-red-500 h-10"
+                        >
+                            <FaTrash />
+                            <span className="font-semibold">Delete</span>
+                        </div> */}
+                    </div>
+                </Modal>
+            )}
+        {showEdit && (
+                <Modal className="bg-opacity-30" close={() => {  setShowEdit(false); }} >
+                    <EditProfile profile={profile} />
+                </Modal>
+            )}
+
       </div>}
     </div>
   )
