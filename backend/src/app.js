@@ -4,7 +4,7 @@ import cors from 'cors'
 
 export const app = express()
 
-const allowedDomains = ['http://localhost:3000', 'https://u-connect-ivory.vercel.app/']
+const allowedDomains = ['http://localhost:3000', 'https://u-connect-ivory.vercel.app']
 
 app.use(cors({
     origin : (origin, callback) => {
