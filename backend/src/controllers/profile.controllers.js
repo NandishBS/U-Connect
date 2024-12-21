@@ -53,11 +53,8 @@ const editProfile = asyncHandler(async (req,res)=>{
 
             prevProfile.bio = bio
             if(prevProfile.username !== username){
-                console.log(prevProfile.username)
-                console.log(username)
                 const isUsernameExists = await User.find({username})
-                console.log(isUsernameExists)
-                if(isUsernameExists){
+                if(isUsernameExists.length > 0){
                     return res.status(409).json(new ApiResponse(409, null , "username already exisits"))
                 }
                 else{
