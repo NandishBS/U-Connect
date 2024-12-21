@@ -78,7 +78,7 @@ const editProfile = asyncHandler(async (req,res)=>{
             }
             return res.status(201).json(new ApiResponse(201, newProfile, "profile edited successfully"))
     } catch (error) {
-        throw new ApiError(error.status, "username already exists")
+        throw new ApiError(error.status, error.message)
     }
 })
 
