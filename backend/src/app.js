@@ -4,9 +4,16 @@ import cors from 'cors'
 
 export const app = express()
 
-//use of middlewares
+const allowedDomains = ['http://localhost:3000', 'https://u-connect-ivory.vercel.app/']
+
 app.use(cors({
-    origin : process.env.CORS_ORIGIN,
+    origin : (origin, callback) => {
+        if (allowedDomains.includes(origin) || !origin) {
+          callback(null, true);
+        } else {
+          callback(new Error('Not allowed by CORS'));
+        }
+      },
     credentials : true
 }))
 app.use(express.json({limit : "50mb"})) //express.json({limit:'50kb'}) use to add limit
