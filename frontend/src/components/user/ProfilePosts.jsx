@@ -18,7 +18,7 @@ function ProfilePosts({posts}) {
         e.stopPropagation();
         setOpenPost(false)}}>
             <FaXmark onClick={(event)=>{ event.stopPropagation(); setOpenPost(false)}} size={30} className='fixed top-2 right-2 z-20'/>
-            <div onClick={(e)=>{e.stopPropagation()}} className='max-w-72'>
+            <div onClick={(e)=>{e.stopPropagation()}} className='max-w-96'>
             <Post post={post}/>
             </div>
           </div>}
