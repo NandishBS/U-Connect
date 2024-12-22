@@ -231,7 +231,7 @@ function Profile() {
                         <span className='font-bold text-xl'>Connections:</span>
                     </div>
                     <div>
-                        <FollowersList users={profile?.connections} placeholder={"No Connections Yet !"}/>
+                        <FollowersList type={"connections"} users={profile?.connections} placeholder={"No Connections Yet !"}/>
                     </div>
                 </div>
 
@@ -241,7 +241,7 @@ function Profile() {
                         <span className='font-bold text-xl'>Invitations:</span>
                     </div>
                     <div>
-                        <FollowersList users={profile?.invitations} placeholder={"You Have No Invitations !"}/>
+                        <FollowersList type={"invitations"} users={profile?.invitations} placeholder={"You Have No Invitations !"}/>
                     </div>
                 </div>}
                 
@@ -250,7 +250,7 @@ function Profile() {
                         <span className='font-bold text-xl'>Invitations sent:</span>
                     </div>
                     <div>
-                        <FollowersList users={profile?.invitationSent} placeholder={"No Invitations are sent !"}/>
+                        <FollowersList type={"invitationSent"} users={profile?.invitationSent} placeholder={"No Invitations are sent !"}/>
                     </div>
                 </div>}
             </div>

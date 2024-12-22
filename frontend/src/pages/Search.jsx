@@ -7,7 +7,7 @@ import './pages.css'
 function Search() {
   const [usersList, setUsersList] = useState([]);
   const [searchBarValue , setSearchBarValue] = useState('');
-  const displayUsersList = usersList.filter(user => (user.usn.toLowerCase().includes(searchBarValue.toLowerCase()) || user.username.toLowerCase().includes(searchBarValue.toLowerCase())))
+  const displayUsersList = usersList.filter(user => (user.usn.toLowerCase().includes(searchBarValue.toLowerCase()) || user.username.toLowerCase().includes(searchBarValue.toLowerCase()) || user.fullName.toLowerCase().includes(searchBarValue.toLowerCase())))
 
   const fetchAllUsers = async ()=>{
     const response = await searchService.getAllUsers();

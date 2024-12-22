@@ -54,7 +54,7 @@ function EditProfile({profile}) {
                                                     "w-80 h-80 flex-shrink-0"
                                                 }
                                                 prevImage={profile.avatar}
-                                                placeHolderText="Upload the CoverImage"
+                                                placeHolderText="Upload your image"
                                                 accept="image/*"
                                                 onChange={field.onChange}
                                             />

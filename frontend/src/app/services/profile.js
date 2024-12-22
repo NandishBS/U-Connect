@@ -69,6 +69,8 @@ class ProfileService{
             console.log(error)
         }
     }
+
+    
 }
 
 const profileService = new ProfileService;

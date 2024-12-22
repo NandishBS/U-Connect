@@ -15,12 +15,12 @@ function NavBar() {
       icon2: <IoHomeOutline className={iconClassName}/>,
       text: "Home"
     },
-    {
-      path : '/chat',
-      icon1: <IoChatboxEllipses className={iconClassName}/>,
-      icon2: <IoChatboxEllipsesOutline className={iconClassName}/>,
-      text : "Chat"
-    },
+    // {
+    //   path : '/chat',
+    //   icon1: <IoChatboxEllipses className={iconClassName}/>,
+    //   icon2: <IoChatboxEllipsesOutline className={iconClassName}/>,
+    //   text : "Chat"
+    // },
     {
       path : '/create-post',
       icon1: <IoAddCircle className={iconClassName}/>,
@@ -33,12 +33,12 @@ function NavBar() {
       icon2: <IoSearchOutline className={iconClassName}/>,
       text: "Search"
     },
-    {
-      path : '/notifications',
-      icon1: <IoNotifications className={iconClassName}/>,
-      icon2: <IoNotificationsOutline className={iconClassName}/>,
-      text: "Notification"
-    },
+    // {
+    //   path : '/notifications',
+    //   icon1: <IoNotifications className={iconClassName}/>,
+    //   icon2: <IoNotificationsOutline className={iconClassName}/>,
+    //   text: "Notification"
+    // },
     {
       path : '/profile',
       icon1 : <FaUser className={iconClassName}/>,
