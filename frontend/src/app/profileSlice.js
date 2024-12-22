@@ -16,7 +16,7 @@ const profileSlice = createSlice({
             state.profile = action.payload
         },
         setPosts : (state, action)=>{
-           state.posts = [...state.posts , ...action.payload]
+           state.posts = [...action.payload]
         },
         incrPage : (state, action)=>{
             state.page = state.page + 1
