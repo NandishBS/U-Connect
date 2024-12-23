@@ -18,6 +18,11 @@ This app is strictly for UBDTians, so no one outside our college can create an a
 ```
 using these usn and password anyone can login to this app. but they cannot test create account, forget password and otp verification.
 
+## Web App link  [open website.](https://u-connect-ivory.vercel.app/)
+```bash
+https://u-connect-ivory.vercel.app/
+```
+
 ## Problem we tried to solve
 - Colleges often lack proper networking platforms.
 - Interaction between teachers, students, and alumni typically takes place through WhatsApp, which requires sharing phone numbers.
