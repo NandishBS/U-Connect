@@ -22,7 +22,7 @@ const sendOtpTo = async (email) => {
             to: email,
             subject: "verify your OTP ✔",
             html: `<div style="text-align: center;">
-            <img src="https://res.cloudinary.com/dd2qbbabx/image/upload/v1733314660/aqq9dl2s5iwf5bmrdjwp.jpg" alt="App Logo" style="width: 300px; height: auto;border-radius:20px" />
+            <img src="https://res.cloudinary.com/dd2qbbabx/image/upload/v1734862680/u-connect/eguiqpltqsu88v64f31h.jpg" alt="App Logo" style="width: 300px; height: auto;border-radius:20px" />
             <h1>${ otp }</h1>
             <h2>welcome to U-Connect</h2>
         </div>`,
