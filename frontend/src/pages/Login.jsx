@@ -39,6 +39,11 @@ function Login() {
         <h1 className ="text-3xl mt-1 mb-8 font-semibold text-center flex-wrap">
             Welcome to <UConnectText/>
         </h1>
+        <div className='mb-2'>
+        <p>this app is only for UBDT community. so use</p>
+        <p>( usn : testuser001 , password : testuser001 )</p>
+        </div>
+
         <form className='space-y-5' onSubmit={handleSubmit(onSubmit)}>
 
           <input className='w-full uppercase p-3 placeholder-gray-500 bg-gray-800 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-cyan-400 appearance-none autofill:bg-gray-800' placeholder='USN' autoComplete='off' type="text" required {...register('usn')} />
